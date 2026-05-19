@@ -7,7 +7,7 @@
 
 @media (min-width: 768px) {
   .outlined-text {
-    -webkit-text-stroke: 2px white !important;
+    -webkit-text-stroke: 2px var(--accent) !important;
     color: transparent !important;
   }
 }
@@ -16,11 +16,15 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #0f172a;
+  --foreground: #111827;
   --accent: #2563eb;
   --accent-hover: #1d4ed8;
   --muted: #64748b;
   --border: #e2e8f0;
+  --surface: #ffffff;
+  --foreground-secondary: #42516a;
+  --caption: #8794ab;
+  --border-soft: #edf1f6;
 }
 
 .dark {
@@ -30,14 +34,23 @@
   --accent-hover: #3b82f6;
   --muted: #94a3b8;
   --border: #1e2d45;
+  --surface: #0d1829;
+  --foreground-secondary: #8899b4;
+  --caption: #64748b;
+  --border-soft: #162032;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --color-muted: var(--muted);
   --color-border: var(--border);
+  --color-surface: var(--surface);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-caption: var(--caption);
+  --color-border-soft: var(--border-soft);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
