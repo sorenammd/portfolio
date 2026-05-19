@@ -39,18 +39,20 @@ export function Navbar() {
             <motion.header
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.8, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                transition={{ delay: 1.8, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className={cn(
-                    "hidden md:flex fixed z-100 left-0 right-0 justify-center transition-[top] duration-300 px-0",
+                    "hidden md:flex fixed z-100 left-0 right-0 justify-center px-4",
                     hasScrolled ? "top-6" : "top-4",
                 )}
+                style={{ transition: "top 0.35s cubic-bezier(0.22, 1, 0.36, 1)" }}
                 dir="ltr"
             >
-                <motion.div
+                <div
                     className="w-full"
-                    initial={{ maxWidth: INITIAL_WIDTH }}
-                    animate={{ maxWidth: hasScrolled ? MAX_WIDTH : INITIAL_WIDTH }}
-                    transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                    style={{
+                        maxWidth: hasScrolled ? MAX_WIDTH : INITIAL_WIDTH,
+                        transition: "max-width 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+                    }}
                 >
                     <div
                         className={cn(
@@ -87,7 +89,7 @@ export function Navbar() {
                             </div>
                         </div>
                     </div>
-                </motion.div>
+                </div>
             </motion.header>
 
             {/* Mobile bottom navbar */}
