@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+.outlined-text {
+  -webkit-text-stroke: 0;
+  color: inherit;
+}
+
+@media (min-width: 768px) {
+  .outlined-text {
+    -webkit-text-stroke: 2px white !important;
+    color: transparent !important;
+  }
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
