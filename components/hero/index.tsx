@@ -28,7 +28,7 @@ function StarIcon({ className = "h-4.5 w-4.5" }: { className?: string }) {
 export default function Hero() {
     return (
         <section className="relative min-h-screen w-full overflow-hidden bg-white px-5 text-[#0f172a] md:px-8">
-            <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center pt-20 md:block md:h-screen md:min-h-185 md:pt-0">
+            <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center pt-10 md:block md:h-screen md:min-h-185 md:pt-0">
                 <div className="relative z-30 w-fit md:absolute md:left-1/2 md:top-22.5 md:z-auto md:-translate-x-1/2">
                     <motion.div
                         {...fadeUp(0)}
@@ -49,7 +49,7 @@ export default function Hero() {
 
                     <motion.h1
                         {...fadeUp(0.1)}
-                        className="relative z-10 mt-5 w-max whitespace-nowrap text-center text-[clamp(2.25rem,9vw,3.25rem)] font-black leading-[0.95] tracking-normal text-[#111827] md:text-[clamp(4.75rem,6.55vw,6rem)]"
+                        className="relative z-10 mt-5 w-max whitespace-nowrap text-center text-[9.5vw] font-black leading-[0.95] tracking-normal text-[#111827] md:text-[clamp(4.75rem,6.55vw,6rem)]"
                     >
                         I&apos;m <span className="text-[#2563eb]">Mohammad,</span>
                     </motion.h1>
@@ -57,7 +57,7 @@ export default function Hero() {
 
                 <motion.h2
                     {...fadeUp(0.2)}
-                    className="relative z-40 mt-5 w-max whitespace-nowrap text-center text-[clamp(2.25rem,8.5vw,3.25rem)] font-black leading-[0.95] tracking-normal text-[#111827] md:absolute md:left-1/2 md:top-65 md:mt-0 md:-translate-x-1/2 md:text-[clamp(4.9rem,6.8vw,6.35rem)]"
+                    className="relative z-40 mt-5 w-max whitespace-nowrap text-center text-[9.5vw] font-black leading-[0.95] tracking-normal text-[#111827] md:absolute md:left-1/2 md:top-65 md:mt-0 md:-translate-x-1/2 md:text-[clamp(4.9rem,6.8vw,6.35rem)]"
                 >
                     Softw
                     <span className="outlined-text">are En</span>
@@ -104,7 +104,7 @@ export default function Hero() {
                     <hr className="mt-4 w-full border-[#e2e8f0]" />
                 </motion.div>
 
-                <motion.div {...fadeUp(0.5)} className="relative z-50 -mt-4 flex items-center gap-3 md:absolute md:bottom-8.5 md:left-1/2 md:mt-0 md:-translate-x-1/2 md:gap-4">
+                <motion.div {...fadeUp(0.5)} className="relative z-50 -mt-[4.5rem] md:absolute md:top-[calc(4.5rem+min(86vh,690px)-5.5rem)] md:left-1/2 md:mt-0 md:-translate-x-1/2">
                     <svg
                         className="absolute -left-14 bottom-2 hidden text-[#64748b] md:block"
                         width="42"
@@ -117,20 +117,22 @@ export default function Hero() {
                         <path d="M26.5 31.5L31 26l5.5 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
 
-                    <button className="flex h-11 items-center gap-2 rounded-full bg-[#2563eb] px-7 text-sm font-bold text-white shadow-[0_16px_30px_rgba(37,99,235,0.28)] transition-colors duration-200 hover:bg-[#1d4ed8]">
-                        Portfolio
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                            <path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </button>
-                    <button className="h-11 rounded-full border border-[#d8e0ea] bg-white px-7 text-sm font-bold text-[#1f2937] shadow-[0_6px_14px_rgba(15,23,42,0.12)] transition-colors duration-200 hover:border-[#bfccdc] hover:bg-[#f8fafc]">
-                        Hire Me
-                    </button>
+                    <div className="flex items-center gap-3 rounded-full border border-white/40 bg-white/30 px-4 py-3 shadow-[0_8px_32px_rgba(15,23,42,0.10)] backdrop-blur-md md:gap-4">
+                        <button className="flex h-13 items-center gap-2.5 rounded-full bg-[#2563eb] px-8 text-base font-bold text-white shadow-[0_16px_30px_rgba(37,99,235,0.28)] transition-colors duration-200 hover:bg-[#1d4ed8]">
+                            Portfolio
+                            <svg width="15" height="15" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                                <path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </button>
+                        <button style={{ textWrap: 'nowrap' }} className="h-13 rounded-full border border-[#d8e0ea] bg-white/70 px-8 text-base font-bold text-[#1f2937] shadow-[0_6px_14px_rgba(15,23,42,0.10)] transition-colors duration-200 hover:border-[#bfccdc] hover:bg-white">
+                            Hire Me
+                        </button>
+                    </div>
                 </motion.div>
 
                 <motion.div {...fadeIn(0.6)} className="grid w-full max-w-md grid-cols-2 gap-4 py-10 md:hidden">
                     <div className="rounded-2xl border border-[#edf1f6] p-4">
-                        <p className="text-2xl font-black text-[#111827]">50+</p>
+                        <p className="text-xl font-black text-[#111827]">50+</p>
                         <p className="text-xs font-semibold text-[#8794ab]">Projects Delivered</p>
                     </div>
                     <div className="rounded-2xl border border-[#edf1f6] p-4 text-right">
@@ -139,7 +141,7 @@ export default function Hero() {
                                 <StarIcon key={index} className="h-3.5 w-3.5" />
                             ))}
                         </div>
-                        <p className="text-2xl font-black text-[#111827]">5 Years</p>
+                        <p className="text-xl font-black text-[#111827]">5 Years</p>
                         <p className="text-xs font-semibold text-[#8794ab]">Experience</p>
                     </div>
                     <div className="col-span-2 rounded-2xl border border-[#edf1f6] p-4">
