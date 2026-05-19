@@ -78,6 +78,31 @@ export default function Hero() {
                         sizes="(max-width: 768px) 86vw, (max-width: 1280px) 33vw, 455px"
                         className="object-contain object-top"
                     />
+                    <motion.div {...fadeUp(0.5)} className="absolute z-50 left-1/2 -translate-x-[54%] bottom-2">
+                        <svg
+                            className="absolute -left-14 bottom-2 hidden text-[#64748b] md:block"
+                            width="42"
+                            height="42"
+                            viewBox="0 0 42 42"
+                            fill="none"
+                            aria-hidden="true"
+                        >
+                            <path d="M5.5 11C18 6.5 28 12 31 26" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                            <path d="M26.5 31.5L31 26l5.5 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+
+                        <div className="flex items-center gap-3 rounded-full border border-white/40 bg-white/30 px-4 py-3 shadow-[0_8px_32px_rgba(15,23,42,0.10)] backdrop-blur-md md:gap-4">
+                            <button className="flex h-13 items-center gap-2.5 rounded-full bg-[#2563eb] px-8 text-base font-bold text-white shadow-[0_16px_30px_rgba(37,99,235,0.28)] transition-colors duration-200 hover:bg-[#1d4ed8]">
+                                Portfolio
+                                <svg width="15" height="15" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                                    <path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </button>
+                            <button style={{ textWrap: 'nowrap' }} className="h-13 rounded-full border border-[#d8e0ea] bg-white/70 px-8 text-base font-bold text-[#1f2937] shadow-[0_6px_14px_rgba(15,23,42,0.10)] transition-colors duration-200 hover:border-[#bfccdc] hover:bg-white">
+                                Hire Me
+                            </button>
+                        </div>
+                    </motion.div>
                 </motion.div>
 
                 <motion.div {...fadeIn(0.45)} className="hidden md:absolute md:left-[5.9%] md:top-105 md:z-50 md:flex md:w-52.5 md:flex-col md:gap-8">
@@ -104,31 +129,7 @@ export default function Hero() {
                     <hr className="mt-4 w-full border-[#e2e8f0]" />
                 </motion.div>
 
-                <motion.div {...fadeUp(0.5)} className="relative z-50 -mt-[4.5rem] md:absolute md:top-[calc(4.5rem+min(86vh,690px)-5.5rem)] md:left-1/2 md:mt-0 md:-translate-x-1/2">
-                    <svg
-                        className="absolute -left-14 bottom-2 hidden text-[#64748b] md:block"
-                        width="42"
-                        height="42"
-                        viewBox="0 0 42 42"
-                        fill="none"
-                        aria-hidden="true"
-                    >
-                        <path d="M5.5 11C18 6.5 28 12 31 26" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                        <path d="M26.5 31.5L31 26l5.5 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
 
-                    <div className="flex items-center gap-3 rounded-full border border-white/40 bg-white/30 px-4 py-3 shadow-[0_8px_32px_rgba(15,23,42,0.10)] backdrop-blur-md md:gap-4">
-                        <button className="flex h-13 items-center gap-2.5 rounded-full bg-[#2563eb] px-8 text-base font-bold text-white shadow-[0_16px_30px_rgba(37,99,235,0.28)] transition-colors duration-200 hover:bg-[#1d4ed8]">
-                            Portfolio
-                            <svg width="15" height="15" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                                <path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </button>
-                        <button style={{ textWrap: 'nowrap' }} className="h-13 rounded-full border border-[#d8e0ea] bg-white/70 px-8 text-base font-bold text-[#1f2937] shadow-[0_6px_14px_rgba(15,23,42,0.10)] transition-colors duration-200 hover:border-[#bfccdc] hover:bg-white">
-                            Hire Me
-                        </button>
-                    </div>
-                </motion.div>
 
                 <motion.div {...fadeIn(0.6)} className="grid w-full max-w-md grid-cols-2 gap-4 py-10 md:hidden">
                     <div className="rounded-2xl border border-[#edf1f6] p-4">
