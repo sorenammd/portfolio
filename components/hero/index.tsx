@@ -27,8 +27,8 @@ function StarIcon({ className = "h-4.5 w-4.5 text-accent" }: { className?: strin
 
 export default function Hero() {
     return (
-        <section className="relative min-h-screen w-full overflow-hidden bg-background px-5 text-foreground md:px-8">
-            <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center pt-10 md:block md:h-screen md:min-h-185 md:pt-0">
+        <section className="relative min-h-screen w-full overflow-hidden bg-background px-5 text-foreground md:px-8 md:pt-40">
+            <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center pt-10 md:block md:h-screen md:min-h-185 ">
                 <div className="relative z-30 w-fit md:absolute md:left-1/2 md:top-22.5 md:z-auto md:-translate-x-1/2">
                     <motion.div
                         {...fadeUp(0)}
