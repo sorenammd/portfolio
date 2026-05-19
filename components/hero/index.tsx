@@ -44,29 +44,18 @@ export default function Hero() {
 
                 {/* Center: photo + orange circle + buttons */}
                 <div className="relative flex flex-col items-center flex-1 mx-4">
-                    {/* Orange semicircle with photo */}
-                    <div className="relative w-64 md:w-72 lg:w-80 overflow-hidden rounded-t-full bg-orange-500 mt-4"
-                        style={{ height: "420px" }}>
-                        {/* Photo */}
+                    {/* Orange semicircle background */}
+
+
+                    {/* Photo — larger than the orange circle */}
+                    <div className="relative w-72 md:w-80 lg:w-96 -mt-16" style={{ height: "650px" }}>
                         <Image
                             src="/me.png"
                             alt="Mohammad Mohammadi photo"
                             fill
-                            sizes="(max-width: 768px) 256px, (max-width: 1024px) 288px, 320px"
+                            sizes="(max-width: 768px) 288px, (max-width: 1024px) 320px, 384px"
                             className="object-cover object-top"
                         />
-
-                        {/* Star decoration */}
-                        <div className="absolute bottom-16 right-3">
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                                <path
-                                    d="M16 4l2.4 7.2L26 16l-7.6 4.8L16 28l-2.4-7.2L6 16l7.6-4.8z"
-                                    stroke="#FFD700"
-                                    strokeWidth="2"
-                                    fill="none"
-                                />
-                            </svg>
-                        </div>
                     </div>
 
                     {/* CTA Buttons */}
