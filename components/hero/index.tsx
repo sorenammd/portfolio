@@ -68,7 +68,7 @@ export default function Hero() {
                     initial={{ opacity: 0, scale: 0.97 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.85, delay: 0.25, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                    className="relative z-50 -mt-8 h-140 w-[min(86vw,390px)] md:absolute md:left-1/2 md:top-18 md:z-20 md:mt-0 md:h-[min(86vh,690px)] md:min-h-157.5 md:w-[clamp(410px,33vw,455px)] md:-translate-x-1/2"
+                    className="relative -mt-8 h-140 w-[min(86vw,390px)] md:absolute md:left-1/2 md:top-18 md:z-20 md:mt-0 md:h-[min(86vh,690px)] md:min-h-157.5 md:w-[clamp(410px,33vw,455px)] md:-translate-x-1/2"
                 >
                     <Image
                         src="/me.png"
@@ -76,9 +76,18 @@ export default function Hero() {
                         fill
                         loading="eager"
                         sizes="(max-width: 768px) 86vw, (max-width: 1280px) 33vw, 455px"
-                        className="object-contain object-top"
+                        className="relative z-0 object-contain object-top"
                     />
-                    <motion.div {...fadeUp(0.5)} className="absolute z-50 left-1/2 -translate-x-[54%] bottom-2">
+
+                    <div
+                        aria-hidden="true"
+                        className="pointer-events-none
+                         absolute -bottom-25 left-1/2 z-10 h-30 w-screen 
+                         -translate-x-1/2 rounded-t-4xl border
+                          border-border/0 bg-background md:h-42 "
+                    />
+
+                    <motion.div {...fadeUp(0.5)} className="absolute bottom-4 left-1/2 z-20 translate-x-[-54%] md:bottom-7">
                         <svg
                             className="absolute -left-14 bottom-2 hidden text-muted/50 md:block"
                             width="42"
@@ -98,7 +107,7 @@ export default function Hero() {
                                     <path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </button>
-                            <button style={{ textWrap: 'nowrap' }} className="h-13 rounded-full border border-border bg-surface/70 px-8 text-base font-bold text-foreground shadow-[0_6px_14px_rgba(15,23,42,0.10)] transition-colors duration-200 hover:border-border/60 hover:bg-surface">
+                            <button className="h-13 rounded-full border border-border bg-surface/70 px-8 text-base font-bold text-foreground text-nowrap shadow-[0_6px_14px_rgba(15,23,42,0.10)] transition-colors duration-200 hover:border-border/60 hover:bg-surface">
                                 Hire Me
                             </button>
                         </div>
@@ -131,7 +140,7 @@ export default function Hero() {
 
 
 
-                <motion.div {...fadeIn(0.6)} className="grid w-full max-w-md grid-cols-2 gap-4 py-10 md:hidden">
+                <motion.div {...fadeIn(0.6)} className="grid z-10 w-full max-w-md grid-cols-2 gap-4 py-10 md:hidden">
                     <div className="rounded-2xl border border-border-soft p-4">
                         <p className="text-xl font-black text-foreground">50+</p>
                         <p className="text-xs font-semibold text-caption">Projects Delivered</p>
