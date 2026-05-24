@@ -64,17 +64,11 @@ export const projects: ReadonlyArray<Project> = [
             "Contributed to Sensifai, a multilingual Next.js platform for an AI, IoT, and Web3 company, covering marketing pages, marketplace flows, portfolio content, and secure dashboard/admin experiences.",
         techStack: [
             "Next.js",
-            "React",
             "TypeScript",
             "Tailwind CSS",
             "next-intl",
-            "Logto",
-            "Zod",
-            "React Hook Form",
             "Drizzle ORM",
             "PostgreSQL",
-            "Nodemailer",
-            "Cloudflare Turnstile",
         ],
     },
     {
@@ -96,10 +90,8 @@ export const projects: ReadonlyArray<Project> = [
             "React",
             "TypeScript",
             "Vite",
-            "React Router",
             "Tailwind CSS",
             "Radix UI",
-            "Recharts",
             "OpenAI API",
             "IndexedDB",
         ],
@@ -119,7 +111,7 @@ export const projects: ReadonlyArray<Project> = [
         ],
         shortVersion:
             "Built a responsive marketing website and interactive product showcase for PhotoGear, a precision agriculture platform for drone-based NDVI and photogrammetry processing.",
-        techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+        techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
     },
     {
         name: "Smart Crawler",
@@ -143,10 +135,7 @@ export const projects: ReadonlyArray<Project> = [
             "TypeORM",
             "Meilisearch",
             "Ollama",
-            "Crawl4AI",
-            "Docker",
-            "Docker Compose",
-            "Jest",
+            "Crawl4AI"
         ],
     },
     {
@@ -164,7 +153,7 @@ export const projects: ReadonlyArray<Project> = [
         ],
         shortVersion:
             "Built and maintained Artogenia, a Web3 art marketplace for artists, galleries, and collectors, with marketplace flows, SEO, and production deployment.",
-        techStack: ["Next.js", "React", "TypeScript", "Redux Toolkit", "Web3", "Docker", "Nginx"],
+        techStack: ["Next.js","TypeScript","Web3"],
     },
     {
         name: "3D Gallery",
@@ -201,13 +190,7 @@ export const projects: ReadonlyArray<Project> = [
         techStack: [
             "Next.js",
             "React",
-            "TypeScript",
-            "Redux Toolkit",
-            "Axios",
-            "Framer Motion",
-            "Swiper",
-            "Phaser",
-            "Capacitor",
+            "TypeScript"
         ],
     },
     {
@@ -225,7 +208,7 @@ export const projects: ReadonlyArray<Project> = [
         ],
         shortVersion:
             "Built a premium real estate development website with dynamic project pages, media galleries, motion-driven UI, and a secure contact system.",
-        techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Swiper"],
+        techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
     },
     {
         name: "FairWin",
@@ -244,15 +227,10 @@ export const projects: ReadonlyArray<Project> = [
             "Built FairWin end-to-end as a decentralized lottery platform with wallet auth, NFT tickets, Chainlink VRF, and admin tooling.",
         techStack: [
             "Next.js",
-            "React",
             "TypeScript",
             "Express.js",
             "MongoDB",
-            "Solidity",
-            "Wagmi",
-            "Reown AppKit",
-            "React Query",
-            "JWT",
+            "Solidity"
         ],
     },
     {
@@ -273,25 +251,13 @@ export const projects: ReadonlyArray<Project> = [
             "Built core parts of the DGIX ecosystem across exchange, super app, and prop trading products, covering full-stack trading flows, localized service UX, and dashboard-driven product experiences.",
         techStack: [
             "Next.js",
-            "React",
             "TypeScript",
             "Tailwind CSS",
             "Node.js",
             "Express",
             "MongoDB",
-            "MySQL",
-            "React Query",
-            "Redux Toolkit",
             "Radix UI",
-            "Axios",
-            "Framer Motion",
-            "GSAP",
-            "Recharts",
-            "MT4 Integration",
-            "PayStar",
-            "NOWPayments",
-            "Twilio",
-            "AWS S3-compatible storage",
+            "GSAP",     
         ],
     },
     {
@@ -309,7 +275,7 @@ export const projects: ReadonlyArray<Project> = [
         ],
         shortVersion:
             "Built a full-stack digital menu platform for cafes and restaurants with customer, store-owner, and admin experiences.",
-        techStack: ["React", "TypeScript", "Redux Toolkit", "RTK Query", "React Router", "RESTful APIs"],
+        techStack: ["React", "TypeScript", "Node.js", "Express", "MongoDB"],
     },
     {
         name: "Aerium",
@@ -326,7 +292,7 @@ export const projects: ReadonlyArray<Project> = [
         ],
         shortVersion:
             "Built a responsive landing page for Aerium with modular sections, motion-based visuals, SEO metadata, and GitHub Pages deployment.",
-        techStack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4", "GitHub Actions"],
+        techStack: ["Next.js 16", "TypeScript", "Tailwind"],
     },
     {
         name: "Khodesadi",
@@ -345,14 +311,7 @@ export const projects: ReadonlyArray<Project> = [
             "Built a high-performance gaming e-commerce frontend with marketplace flows, SEO, performance optimization, and Android app packaging.",
         techStack: [
             "Next.js",
-            "React",
             "TypeScript",
-            "Redux Toolkit",
-            "Axios",
-            "Framer Motion",
-            "Swiper",
-            "Phaser",
-            "Capacitor",
         ],
     },
     {
