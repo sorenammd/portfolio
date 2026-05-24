@@ -320,16 +320,19 @@ function ProjectSlide({ project }: { project: Project }) {
                         {project.category}
                     </span>
                     {project.domains.length > 0 && (
-                        <a
-                            href={project.domains[0]}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex h-8 items-center gap-2 rounded-full bg-accent px-4 text-xs font-bold text-white shadow-[0_14px_26px_rgba(37,99,235,0.22)] transition-colors duration-200 hover:bg-accent-hover"
-                            aria-label={`Open ${project.name}`}
-                        >
-                            Visit
-                            <ExternalLink className="h-3.5 w-3.5" />
-                        </a>
+                        <>
+                            <span className="h-px w-6 bg-border-soft" aria-hidden="true" />
+                            <a
+                                href={project.domains[0]}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-caption transition-colors duration-200 hover:text-foreground"
+                                aria-label={`Open ${project.name}`}
+                            >
+                                Visit
+                                <ExternalLink className="h-3 w-3" />
+                            </a>
+                        </>
                     )}
                 </div>
 
