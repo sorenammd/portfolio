@@ -31,10 +31,10 @@ export default function ProjectsPage() {
                     {projects.map((project) => (
                         <article
                             key={project.name}
-                            className="overflow-hidden flex flex-col rounded-[1.75rem] border border-border bg-surface/30 transition-colors duration-200 hover:bg-surface/50"
+                            className="overflow-hidden flex flex-col rounded-[1.1rem] border border-border bg-surface/30 transition-colors duration-200 hover:bg-surface/50"
                         >
                             {/* Thumbnail */}
-                            <div className="relative h-58 w-full overflow-hidden">
+                            <div className="relative h-68 w-full overflow-hidden">
                                 <Image
                                     src={project.thumbnail}
                                     alt={project.name}
