@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 
 export const navLinks = [
     { id: 1, name: "Home", href: "/" as const },
-    { id: 2, name: "Work", href: "/work" as const },
+    { id: 2, name: "Projects", href: "/projects" as const },
     { id: 3, name: "Contact", href: "/contact" as const },
 ];
 

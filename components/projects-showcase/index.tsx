@@ -5,6 +5,7 @@ import { projects } from "@/lib/projects";
 import { AnimatePresence, motion, useScroll, type Variants } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 
 const slideEase = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -25,6 +26,25 @@ type PointerGestureState = {
     ignore: boolean;
 };
 
+type ShowcaseSlide =
+    | {
+        type: "project";
+        project: Project;
+    }
+    | {
+        type: "cta";
+    };
+
+const featuredProjects = projects.slice(0, 3);
+const remainingProjects = projects.slice(featuredProjects.length);
+const showcaseSlides: ReadonlyArray<ShowcaseSlide> = [
+    ...featuredProjects.map((project) => ({ type: "project" as const, project })),
+    { type: "cta" as const },
+];
+const marqueeRows = Array.from({ length: 3 }, (_unused, rowIndex) => (
+    remainingProjects.filter((_project, index) => index % 3 === rowIndex)
+));
+
 const variants: Variants = {
     enter: (dir: number) => ({
         x: dir < 0 ? "-100%" : 0,
@@ -44,6 +64,33 @@ const variants: Variants = {
     }),
 };
 
+const contentRevealVariants: Variants = {
+    hidden: { opacity: 0, y: 36 },
+    visible: (delay = 0) => ({
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.7,
+            delay,
+            ease: slideEase,
+        },
+    }),
+};
+
+const thumbnailRevealVariants: Variants = {
+    hidden: { opacity: 0, y: 48, scale: 0.96 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            duration: 0.85,
+            delay: 0.18,
+            ease: slideEase,
+        },
+    },
+};
+
 function getProjectTitleSize(name: string) {
     const longestPart = Math.max(...name.split(/[\s-]+/).map((part) => part.length));
 
@@ -59,7 +106,7 @@ function getProjectTitleSize(name: string) {
 }
 
 function clampProjectIndex(index: number) {
-    return Math.min(projects.length - 1, Math.max(0, index));
+    return Math.min(showcaseSlides.length - 1, Math.max(0, index));
 }
 
 export default function ProjectsShowcase() {
@@ -74,7 +121,7 @@ export default function ProjectsShowcase() {
     const stepProjectRef = useRef<(scrollDirection: number, options?: StepOptions) => void>(() => undefined);
     const [activeIndex, setActiveIndex] = useState(0);
     const [direction, setDirection] = useState(1);
-    const progressScale = projects.length <= 1 ? 1 : activeIndex / (projects.length - 1);
+    const progressScale = showcaseSlides.length <= 1 ? 1 : activeIndex / (showcaseSlides.length - 1);
 
     const { scrollYProgress } = useScroll({
         target: sectionRef,
@@ -124,7 +171,7 @@ export default function ProjectsShowcase() {
 
         const currentIndex = activeIndexRef.current;
         return scrollDirection > 0
-            ? currentIndex < projects.length - 1
+            ? currentIndex < showcaseSlides.length - 1
             : currentIndex > 0;
     }, [isInsideSteppedScrollArea]);
 
@@ -132,7 +179,7 @@ export default function ProjectsShowcase() {
         const scrollBounds = getSectionScrollBounds();
         if (!scrollBounds) return null;
 
-        const stepSize = projects.length <= 1 ? 0 : (scrollBounds.maxScrollY - scrollBounds.sectionTop) / (projects.length - 1);
+        const stepSize = showcaseSlides.length <= 1 ? 0 : (scrollBounds.maxScrollY - scrollBounds.sectionTop) / (showcaseSlides.length - 1);
 
         return scrollBounds.sectionTop + stepSize * index;
     }, [getSectionScrollBounds]);
@@ -217,8 +264,8 @@ export default function ProjectsShowcase() {
             if (isSteppingRef.current) return;
 
             const next = Math.min(
-                projects.length - 1,
-                Math.max(0, Math.round(scrollProgress * (projects.length - 1))),
+                showcaseSlides.length - 1,
+                Math.max(0, Math.round(scrollProgress * (showcaseSlides.length - 1))),
             );
             setActiveIndex((prev) => {
                 if (prev === next) return prev;
@@ -310,7 +357,7 @@ export default function ProjectsShowcase() {
         <section
             ref={sectionRef}
             id="projects"
-            style={{ height: `${projects.length * 100}vh` }}
+            style={{ height: `${showcaseSlides.length * 100}vh` }}
             className="relative bg-background"
         >
             <div className="sticky top-0 flex h-screen items-start overflow-hidden pb-10 pt-5 md:items-center md:py-12">
@@ -339,32 +386,54 @@ export default function ProjectsShowcase() {
                             className="h-px flex-1 bg-border origin-left block"
                         />
                         <span className="text-[10px] font-semibold text-caption tabular-nums">
-                            {String(projects.length).padStart(2, "0")}
+                            {String(showcaseSlides.length).padStart(2, "0")}
                         </span>
                     </motion.div>
 
                     {/* ── Project slide ───────────────────────────────────────── */}
                     <div className="relative flex-1 min-h-0">
                         <AnimatePresence custom={direction}>
-                            <motion.div
-                                key={activeIndex}
-                                custom={direction}
-                                variants={variants}
-                                initial="enter"
-                                animate="center"
-                                exit="exit"
-                                className="absolute inset-0 flex select-none items-center justify-center md:cursor-grab md:active:cursor-grabbing"
-                                style={{ touchAction: "none" }}
-                                onPointerDown={handleSlidePointerDown}
-                                onPointerUp={handleSlidePointerEnd}
-                                onPointerCancel={resetPointerGesture}
-                                transition={{
-                                    duration: 0.7,
-                                    ease: slideEase,
-                                }}
-                            >
-                                <ProjectSlide project={projects[activeIndex]} />
-                            </motion.div>
+                            {showcaseSlides[activeIndex]?.type === "project" ? (
+                                <motion.div
+                                    key={activeIndex}
+                                    custom={direction}
+                                    variants={variants}
+                                    initial="enter"
+                                    animate="center"
+                                    exit="exit"
+                                    className="absolute inset-0 flex select-none items-center justify-center md:cursor-grab md:active:cursor-grabbing"
+                                    style={{ touchAction: "none" }}
+                                    onPointerDown={handleSlidePointerDown}
+                                    onPointerUp={handleSlidePointerEnd}
+                                    onPointerCancel={resetPointerGesture}
+                                    transition={{
+                                        duration: 0.7,
+                                        ease: slideEase,
+                                    }}
+                                >
+                                    <ProjectSlide project={showcaseSlides[activeIndex].project} />
+                                </motion.div>
+                            ) : (
+                                <motion.div
+                                    key={activeIndex}
+                                    custom={direction}
+                                    variants={variants}
+                                    initial="enter"
+                                    animate="center"
+                                    exit="exit"
+                                    className="absolute inset-0 flex select-none items-center justify-center md:cursor-grab md:active:cursor-grabbing"
+                                    style={{ touchAction: "none" }}
+                                    onPointerDown={handleSlidePointerDown}
+                                    onPointerUp={handleSlidePointerEnd}
+                                    onPointerCancel={resetPointerGesture}
+                                    transition={{
+                                        duration: 0.7,
+                                        ease: slideEase,
+                                    }}
+                                >
+                                    <ExploreMoreSlide projects={remainingProjects} />
+                                </motion.div>
+                            )}
                         </AnimatePresence>
                     </div>
 
@@ -398,7 +467,13 @@ function ProjectSlide({ project }: { project: Project }) {
             className="relative  grid h-full w-full max-w-7xl grid-rows-[minmax(0,1fr)_auto] items-center gap-4 py-2 md:grid-cols-[minmax(0,1.02fr)_minmax(300px,0.88fr)] md:grid-rows-1 md:gap-12 md:py-4"
         >
             <div className="relative order-2 z-10 flex min-h-0 flex-col items-start md:order-1">
-                <div className="mb-4 flex flex-wrap items-center gap-3 md:mb-5">
+                <motion.div
+                    custom={0.04}
+                    initial="hidden"
+                    animate="visible"
+                    variants={contentRevealVariants}
+                    className="mb-4 flex flex-wrap items-center gap-3 md:mb-5"
+                >
                     <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-caption">
                         {project.category}
                     </span>
@@ -417,9 +492,13 @@ function ProjectSlide({ project }: { project: Project }) {
                             </a>
                         </>
                     )}
-                </div>
+                </motion.div>
 
-                <h3
+                <motion.h3
+                    custom={0.1}
+                    initial="hidden"
+                    animate="visible"
+                    variants={contentRevealVariants}
                     className={`max-w-4xl ${titleSize} overflow-hidden whitespace-nowrap font-black leading-[0.92] tracking-normal text-foreground text-ellipsis md:whitespace-normal md:overflow-visible`}
                 >
                     <span className="inline text-accent md:block">{leadTitle}</span>
@@ -429,17 +508,35 @@ function ProjectSlide({ project }: { project: Project }) {
                             <span className="outlined-text inline md:block md:text-balance">{restTitle}</span>
                         </>
                     )}
-                </h3>
+                </motion.h3>
 
-                <p className="mt-5 max-w-2xl text-[clamp(1rem,1.55vw,1.2rem)] font-semibold leading-[1.6] text-foreground md:mt-6">
+                <motion.p
+                    custom={0.16}
+                    initial="hidden"
+                    animate="visible"
+                    variants={contentRevealVariants}
+                    className="mt-5 max-w-2xl text-[clamp(1rem,1.55vw,1.2rem)] font-semibold leading-[1.6] text-foreground md:mt-6"
+                >
                     {project.role}
-                </p>
+                </motion.p>
 
-                <p className="mt-3 max-w-2xl text-[clamp(0.94rem,1.25vw,1.04rem)] leading-[1.82] text-foreground-secondary md:mt-4">
+                <motion.p
+                    custom={0.22}
+                    initial="hidden"
+                    animate="visible"
+                    variants={contentRevealVariants}
+                    className="mt-3 max-w-2xl text-[clamp(0.94rem,1.25vw,1.04rem)] leading-[1.82] text-foreground-secondary md:mt-4"
+                >
                     {project.shortVersion}
-                </p>
+                </motion.p>
 
-                <div className="mt-6 flex max-w-2xl flex-wrap items-center gap-x-3 gap-y-2 md:mt-8">
+                <motion.div
+                    custom={0.28}
+                    initial="hidden"
+                    animate="visible"
+                    variants={contentRevealVariants}
+                    className="mt-6 flex max-w-2xl flex-wrap items-center gap-x-3 gap-y-2 md:mt-8"
+                >
                     {project.techStack.slice(0, 6).map((tech, index) => (
                         <span
                             key={tech}
@@ -449,19 +546,152 @@ function ProjectSlide({ project }: { project: Project }) {
                             {tech}
                         </span>
                     ))}
-                </div>
+                </motion.div>
             </div>
 
             <div className="relative order-1 h-[30vh] min-h-58 w-full md:order-2 md:h-full md:min-h-0">
                 <div className="absolute inset-x-6 bottom-4 h-px bg-border-soft md:inset-x-10" aria-hidden="true" />
                 <div className="absolute right-4 top-8 hidden h-28 w-px bg-border-soft md:block" aria-hidden="true" />
-                <Image
-                    src={project.thumbnail}
-                    alt={`${project.name} preview`}
-                    fill
-                    className="object-contain object-center drop-shadow-[0_28px_44px_rgba(15,23,42,0.22)]"
-                    sizes="(max-width: 768px) 92vw, 44vw"
-                />
+                <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    variants={thumbnailRevealVariants}
+                    className="relative h-full w-full"
+                >
+                    <Image
+                        src={project.thumbnail}
+                        alt={`${project.name} preview`}
+                        fill
+                        className="object-contain object-center drop-shadow-[0_28px_44px_rgba(15,23,42,0.22)]"
+                        sizes="(max-width: 768px) 92vw, 44vw"
+                    />
+                </motion.div>
+            </div>
+        </article>
+    );
+}
+
+function ExploreMoreSlide({ projects }: { projects: ReadonlyArray<Project> }) {
+    return (
+        <article className="relative grid h-full w-full max-w-7xl grid-rows-[minmax(0,1fr)_auto] items-center gap-4 py-2 md:grid-cols-[minmax(0,1.02fr)_minmax(300px,0.88fr)] md:grid-rows-1 md:gap-12 md:py-4">
+            <div className="relative order-2 z-10 flex min-h-0 flex-col items-start justify-center md:order-1">
+
+                <motion.h3
+                    custom={0.1}
+                    initial="hidden"
+                    animate="visible"
+                    variants={contentRevealVariants}
+                    className="max-w-4xl text-[clamp(1.9rem,8.2vw,3.45rem)] font-black leading-[0.92] tracking-normal text-foreground md:text-[clamp(3.9rem,5.7vw,5.85rem)]"
+                >
+                    <span className="inline text-accent md:block">Explore</span>
+                    <span className="outlined-text inline md:block md:text-balance">More Projects</span>
+                </motion.h3>
+
+                <motion.p
+                    custom={0.16}
+                    initial="hidden"
+                    animate="visible"
+                    variants={contentRevealVariants}
+                    className="mt-5 max-w-2xl text-[clamp(1rem,1.55vw,1.2rem)] font-semibold leading-[1.6] text-foreground md:mt-6"
+                >
+                    A broader selection of product, platform, and immersive work across AI, Web3, infrastructure, and commerce.
+                </motion.p>
+
+                <motion.p
+                    custom={0.22}
+                    initial="hidden"
+                    animate="visible"
+                    variants={contentRevealVariants}
+                    className="mt-3 max-w-2xl text-[clamp(0.94rem,1.25vw,1.04rem)] leading-[1.82] text-foreground-secondary md:mt-4"
+                >
+                    Open the full archive to browse every case study, stack, and project category in one place.
+                </motion.p>
+
+                <motion.div
+                    custom={0.28}
+                    initial="hidden"
+                    animate="visible"
+                    variants={contentRevealVariants}
+                    className="mt-6 md:mt-8"
+                >
+                    <Link
+                        href="/projects"
+                        className="inline-flex h-13 items-center gap-2.5 rounded-full bg-accent px-8 text-base font-bold text-white shadow-[0_16px_30px_rgba(37,99,235,0.28)] transition-colors duration-200 hover:bg-accent-hover"
+                    >
+                        Explore More Projects
+                        <svg width="15" height="15" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                            <path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </Link>
+                </motion.div>
+            </div>
+
+            <div className="relative order-1 h-[20vh] min-h-58 w-full md:order-2 md:h-[50vh] md:min-h-0">
+                <div className="absolute inset-x-6 bottom-4 h-px bg-border-soft md:inset-x-10" aria-hidden="true" />
+                <div className="absolute right-4 top-8 hidden h-28 w-px bg-border-soft md:block" aria-hidden="true" />
+                <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    variants={thumbnailRevealVariants}
+                    className="relative flex h-full w-full items-center justify-center "
+                >
+                    <div className="relative flex h-full w-full  max-w-[34rem] items-center overflow-hidden px-4 py-5 md:px-5 md:py-6">
+                        <div className="grid w-full gap-3 md:gap-4">
+                            {marqueeRows.map((rowProjects, rowIndex) => {
+                                const repeatedProjects = [...rowProjects, ...rowProjects];
+                                const travelDistance = rowIndex % 2 === 0 ? "-50%" : "0%";
+                                const startDistance = rowIndex % 2 === 0 ? "0%" : "-50%";
+
+                                return (
+                                    <div key={`marquee-row-${rowIndex}`}>
+                                        <motion.div
+                                            animate={{ x: [startDistance, travelDistance] }}
+                                            transition={{
+                                                duration: 18 + rowIndex * 2,
+                                                repeat: Number.POSITIVE_INFINITY,
+                                                ease: "linear",
+                                            }}
+                                            className="flex w-max gap-3 pr-3"
+                                        >
+                                            {repeatedProjects.map((project, projectIndex) => (
+                                                <article
+                                                    key={`${project.name}-${rowIndex}-${projectIndex}`}
+                                                    className="flex h-48 w-88 shrink-0 flex-col overflow-hidden rounded-[0.5rem] border border-border bg-surface/30 p-5"
+                                                >
+                                                    <h2 className="line-clamp-2 text-lg font-black leading-tight text-foreground">
+                                                        {project.name}
+                                                    </h2>
+
+                                                    <p className="mt-2 line-clamp-1 text-xs font-semibold text-foreground">
+                                                        {project.role}
+                                                    </p>
+
+                                                    <p className="mt-3 line-clamp-3 text-xs leading-[1.8] text-foreground-secondary">
+                                                        {project.shortVersion}
+                                                    </p>
+
+                                                    {project.domains[0] ? (
+                                                        <a
+                                                            href={project.domains[0]}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="mt-auto inline-flex items-center gap-2 text-xs font-semibold text-accent transition-colors duration-200 hover:text-accent-hover"
+                                                        >
+                                                            Visit project
+                                                            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                                                                <path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                                                            </svg>
+                                                        </a>
+                                                    ) : null}
+                                                </article>
+                                            ))}
+                                        </motion.div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </motion.div>
             </div>
         </article>
     );

@@ -11,7 +11,7 @@ import { NavMenu } from "./nav-menu";
 
 const mobileNavLinks = [
     { id: 1, name: "Home", href: "/" as const, icon: Home },
-    { id: 2, name: "Work", href: "/work" as const, icon: Briefcase },
+    { id: 2, name: "Projects", href: "/projects" as const, icon: Briefcase },
     { id: 3, name: "Contact", href: "/contact" as const, icon: Mail },
 ];
 
