@@ -68,7 +68,7 @@ export default function Hero() {
                     initial={{ opacity: 0, scale: 0.97 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.85, delay: 0.25, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                    className="relative -mt-8 h-140 w-[min(86vw,390px)] md:absolute md:left-1/2 md:top-18 md:z-20 md:mt-0 md:h-[min(86vh,690px)] md:min-h-157.5 md:w-[clamp(410px,33vw,455px)] md:-translate-x-1/2"
+                    className="relative  -mt-8 h-140 w-[min(86vw,390px)] md:absolute md:left-1/2 md:top-18 md:z-20 md:mt-0 md:h-[min(86vh,690px)] md:min-h-157.5 md:w-[clamp(410px,33vw,455px)] md:-translate-x-1/2"
                 >
                     <Image
                         src="/me.png"
@@ -116,9 +116,9 @@ export default function Hero() {
 
                 <motion.div {...fadeIn(0.45)} className="hidden md:absolute md:left-[5.9%] md:top-105 md:z-50 md:flex md:w-52.5 md:flex-col md:gap-8">
                     <div>
-                        <span className="block font-serif text-[52px] leading-none text-foreground-secondary">&ldquo;</span>
-                        <p className="mt-2 text-sm font-semibold leading-[1.55] text-caption">
-                            Mohammad&apos;s exceptional development skills ensured our product&apos;s success. Highly recommended!
+                        <span className="-mb-2 block font-serif text-[42px] leading-none text-foreground-secondary">&ldquo;</span>
+                        <p className="text-sm font-semibold leading-[1.55] text-caption">
+                            Mohammad consistently turned rough ideas into polished, production-ready experiences.
                         </p>
                     </div>
                     <div>
@@ -155,9 +155,9 @@ export default function Hero() {
                         <p className="text-xs font-semibold text-caption">Experience</p>
                     </div>
                     <div className="col-span-2 rounded-2xl border border-border-soft p-4">
-                        <span className="block font-serif text-3xl leading-none text-foreground-secondary">&ldquo;</span>
+                        <span className="-mb-1 block font-serif text-3xl leading-none text-foreground-secondary">&ldquo;</span>
                         <p className="mt-1 text-xs font-semibold leading-relaxed text-caption">
-                            Mohammad&apos;s exceptional development skills ensured our product&apos;s success. Highly recommended!
+                            Mohammad consistently turned rough ideas into polished, production-ready experiences.
                         </p>
                     </div>
                 </motion.div>
