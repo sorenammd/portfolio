@@ -88,17 +88,7 @@ export default function Hero() {
                     />
 
                     <motion.div {...fadeUp(0.5)} className="absolute bottom-4 left-1/2 z-20 translate-x-[-54%] md:bottom-7">
-                        <svg
-                            className="absolute -left-14 bottom-2 hidden text-muted/50 md:block"
-                            width="42"
-                            height="42"
-                            viewBox="0 0 42 42"
-                            fill="none"
-                            aria-hidden="true"
-                        >
-                            <path d="M5.5 11C18 6.5 28 12 31 26" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                            <path d="M26.5 31.5L31 26l5.5 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+       
 
                         <div className="flex items-center gap-3 rounded-full border border-surface/40 bg-surface/30 px-4 py-3 shadow-[0_8px_32px_rgba(15,23,42,0.10)] backdrop-blur-md md:gap-4">
                             <button className="flex h-13 items-center gap-2.5 rounded-full bg-accent px-8 text-base font-bold text-white shadow-[0_16px_30px_rgba(37,99,235,0.28)] transition-colors duration-200 hover:bg-accent-hover">
