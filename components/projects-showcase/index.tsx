@@ -2,14 +2,14 @@
 
 import type { Project } from "@/lib/projects";
 import { projects } from "@/lib/projects";
-import { AnimatePresence, motion, useScroll } from "framer-motion";
+import { AnimatePresence, motion, useScroll, type Variants } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const slideEase = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
-const variants = {
+const variants: Variants = {
     enter: (dir: number) => ({
         x: dir < 0 ? "-100%" : 0,
         y: dir < 0 ? 0 : "100vh",
