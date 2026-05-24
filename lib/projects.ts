@@ -23,9 +23,13 @@ export const PROJECT_CATEGORIES = [
 
 export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number];
 export type ProjectUrl = `http://${string}` | `https://${string}`;
+export type ProjectThumbnail = `/${string}`;
+
+export const DEFAULT_PROJECT_THUMBNAIL = "/Macbook-Air-my.dgix.co.webp" as const;
 
 export interface Project {
     name: string;
+    thumbnail: ProjectThumbnail;
     domains: ReadonlyArray<ProjectUrl>;
     category: ProjectCategory;
     role: string;
@@ -44,6 +48,7 @@ export interface ProjectsDataset {
 export const projects: ReadonlyArray<Project> = [
     {
         name: "Sensifai",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://sensifai.com"],
         category: "AI & Platform",
         role: "Frontend and product engineer",
@@ -74,6 +79,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "Insight",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://insight.sensifai.com"],
         category: "AI & Data",
         role: "Frontend engineer",
@@ -100,6 +106,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "PhotoGear",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://photogear.sensifai.com"],
         category: "AI & Agriculture",
         role: "Frontend and product engineer",
@@ -116,6 +123,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "Smart Crawler",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: [],
         category: "AI & Infrastructure",
         role: "Backend and AI systems engineer",
@@ -143,6 +151,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "Artogenia",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://artogenia.com"],
         category: "Marketplace & Web3",
         role: "Frontend lead and product engineer",
@@ -159,6 +168,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "3D Gallery",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://3d-gallery.artogenia.com"],
         category: "Immersive & 3D",
         role: "3D frontend engineer",
@@ -175,6 +185,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "COC Game",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://cocgame.net"],
         category: "Commerce & Mobile",
         role: "Frontend engineer",
@@ -201,6 +212,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "InvestmentVista",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://investmentvista.com"],
         category: "Real Estate & Lead Generation",
         role: "Frontend engineer",
@@ -217,6 +229,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "FairWin",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://fairwin.online"],
         category: "Web3 & FinTech",
         role: "Full-stack and smart contract engineer",
@@ -244,6 +257,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "DGIX Ecosystem (Exchange, Super App, Prop)",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://dgix.app", "https://my.dgix.co", "https://dgixprop.co"],
         category: "Ecosystem & Platforms",
         role: "Full-stack, frontend, and UX engineer",
@@ -282,6 +296,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "Menudi",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://demo-menudi.vercel.app"],
         category: "Restaurant Tech",
         role: "Full-stack engineer",
@@ -298,6 +313,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "Aerium",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://aerium.network"],
         category: "Marketing & Community",
         role: "Frontend engineer",
@@ -314,6 +330,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "Khodesadi",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://khodesadi.com"],
         category: "Commerce & Gaming",
         role: "Frontend engineer",
@@ -340,6 +357,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "Tutorist",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://sensifai.com/en/portfolio/tutorist"],
         category: "EdTech & AI",
         role: "Product and frontend engineer",
@@ -356,6 +374,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "Senso3D",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://sensifai.com/en/portfolio/senso3d"],
         category: "Immersive AI & 3D",
         role: "Frontend and Unity integrator",
@@ -372,6 +391,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "SensiLend",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://sensifai.com/en/portfolio/sensilend"],
         category: "Web3 & Finance",
         role: "Frontend engineer",
@@ -388,6 +408,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "IP Captain",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://ip-captain.com"],
         category: "Web3 & IP",
         role: "Frontend engineer",
@@ -404,6 +425,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "IPMinter",
+        thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://sensifai.com/en/portfolio/ipminter"],
         category: "Web3 & IP",
         role: "Frontend engineer",
