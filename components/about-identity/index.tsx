@@ -42,7 +42,7 @@ export default function AboutIdentity() {
     return (
         <section
             id="about"
-            className="relative w-full bg-background px-5 pb-24 text-foreground md:px-8 md:pb-36"
+            className="relative w-full bg-background px-5 pb-10 text-foreground md:px-8 md:pb-10"
         >
             <div className="relative mx-auto max-w-7xl">
 

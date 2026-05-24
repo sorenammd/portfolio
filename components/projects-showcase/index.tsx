@@ -386,7 +386,7 @@ export default function ProjectsShowcase() {
                             className="h-px flex-1 bg-border origin-left block"
                         />
                         <span className="text-[10px] font-semibold text-caption tabular-nums">
-                            {String(showcaseSlides.length).padStart(2, "0")}
+                            +20
                         </span>
                     </motion.div>
 
@@ -447,7 +447,7 @@ export default function ProjectsShowcase() {
                             />
                         </div>
                         <span className="text-[10px] font-medium text-caption shrink-0">
-                            Scroll, swipe, or drag
+                            Scroll
                         </span>
                     </div>
 
@@ -477,21 +477,6 @@ function ProjectSlide({ project }: { project: Project }) {
                     <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-caption">
                         {project.category}
                     </span>
-                    {project.domains.length > 0 && (
-                        <>
-                            <span className="h-px w-6 bg-border-soft" aria-hidden="true" />
-                            <a
-                                href={project.domains[0]}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-caption transition-colors duration-200 hover:text-foreground"
-                                aria-label={`Open ${project.name}`}
-                            >
-                                Visit
-                                <ExternalLink className="h-3 w-3" />
-                            </a>
-                        </>
-                    )}
                 </motion.div>
 
                 <motion.h3
@@ -547,6 +532,27 @@ function ProjectSlide({ project }: { project: Project }) {
                         </span>
                     ))}
                 </motion.div>
+
+                {project.domains.length > 0 && (
+                    <motion.div
+                        custom={0.34}
+                        initial="hidden"
+                        animate="visible"
+                        variants={contentRevealVariants}
+                        className="mt-8 w-full"
+                    >
+                        <a
+                            href={project.domains[0]}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex w-full justify-center h-13 items-center gap-2.5 rounded-full bg-accent px-8 text-base font-bold text-white transition-colors duration-200 hover:bg-accent-hover md:w-auto"
+                            aria-label={`Visit ${project.name}`}
+                        >
+                            Visit Project
+                            <ExternalLink className="h-4 w-4" />
+                        </a>
+                    </motion.div>
+                )}
             </div>
 
             <div className="relative order-1 h-[30vh] min-h-58 w-full md:order-2 md:h-full md:min-h-0">
@@ -573,17 +579,17 @@ function ProjectSlide({ project }: { project: Project }) {
 
 function ExploreMoreSlide({ projects }: { projects: ReadonlyArray<Project> }) {
     return (
-        <article className="relative grid h-full w-full max-w-7xl grid-rows-[minmax(0,1fr)_auto] items-center gap-4 py-2 md:grid-cols-[minmax(0,1.02fr)_minmax(300px,0.88fr)] md:grid-rows-1 md:gap-12 md:py-4">
-            <div className="relative order-2 z-10 flex min-h-0 flex-col items-start justify-center md:order-1">
+        <article className="relative grid h-full w-full max-w-7xl overflow-hidden grid-rows-[minmax(0,1fr)_auto] items-center gap-4 py-2 md:grid-cols-[minmax(0,1.02fr)_minmax(300px,0.88fr)] md:grid-rows-1 md:gap-12 md:py-4">
+            <div className="relative order-2 z-10 min-w-0 flex min-h-0 flex-col items-start justify-center md:order-1">
 
                 <motion.h3
                     custom={0.1}
                     initial="hidden"
                     animate="visible"
                     variants={contentRevealVariants}
-                    className="max-w-4xl text-[clamp(1.9rem,8.2vw,3.45rem)] font-black leading-[0.92] tracking-normal text-foreground md:text-[clamp(3.9rem,5.7vw,5.85rem)]"
+                    className="max-w-full mt-6 w-full whitespace-normal break-words text-[clamp(1.9rem,8.2vw,3.45rem)] font-black leading-[1.2] tracking-normal text-foreground md:mt-0 md:text-[clamp(3.9rem,5.7vw,5.85rem)]"
                 >
-                    <span className="inline text-accent md:block">Explore</span>
+                    <span className="inline text-accent mr-2  md:block">Explore</span>
                     <span className="outlined-text inline md:block md:text-balance">More Projects</span>
                 </motion.h3>
 
@@ -592,9 +598,13 @@ function ExploreMoreSlide({ projects }: { projects: ReadonlyArray<Project> }) {
                     initial="hidden"
                     animate="visible"
                     variants={contentRevealVariants}
-                    className="mt-5 max-w-2xl  font-semibold leading-[1.6] text-foreground md:mt-6"
+                    className="mt-5 w-full
+                     max-w-full font-semibold
+                     leading-[1.6] text-foreground md:mt-6 
+                     whitespace-normal break-words"
                 >
-                    A broader selection of product, platform, and immersive work across AI, Web3, infrastructure, and commerce.
+                    A broader selection of product, platform, and immersive work across AI,
+                    Web3, infrastructure, and commerce.
                 </motion.p>
 
                 <motion.p
@@ -602,9 +612,12 @@ function ExploreMoreSlide({ projects }: { projects: ReadonlyArray<Project> }) {
                     initial="hidden"
                     animate="visible"
                     variants={contentRevealVariants}
-                    className="mt-3 max-w-2xl px-2  text-foreground-secondary md:mt-4"
+                    className="mt-3 w-full max-w-full
+                    text-foreground-secondary 
+                    md:mt-4 whitespace-normal break-words"
                 >
-                    Open the full archive to browse every case study, stack, and project category in one place.
+                    Open the full archive to browse every case study, stack, and project
+                    category in one place.
                 </motion.p>
 
                 <motion.div
@@ -612,11 +625,11 @@ function ExploreMoreSlide({ projects }: { projects: ReadonlyArray<Project> }) {
                     initial="hidden"
                     animate="visible"
                     variants={contentRevealVariants}
-                    className="mt-6 md:mt-8"
+                    className="mt-6 md:mt-8 w-full"
                 >
                     <Link
                         href="/projects"
-                        className="inline-flex h-13 items-center gap-2.5 rounded-full bg-accent px-8 text-base font-bold text-white shadow-[0_16px_30px_rgba(37,99,235,0.28)] transition-colors duration-200 hover:bg-accent-hover"
+                        className="inline-flex w-full justify-center h-13 items-center gap-2.5 rounded-full bg-accent px-8 text-base font-bold text-white transition-colors duration-200 hover:bg-accent-hover md:w-auto"
                     >
                         Explore More Projects
                         <svg width="15" height="15" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -626,7 +639,7 @@ function ExploreMoreSlide({ projects }: { projects: ReadonlyArray<Project> }) {
                 </motion.div>
             </div>
 
-            <div className="relative order-1 h-[30vh] min-h-78 w-full md:order-2 md:h-[50vh] md:min-h-0">
+            <div className="relative order-1 min-w-0 h-[30vh] min-h-78 w-full md:order-2 md:h-[50vh] md:min-h-0">
                 <div className="absolute inset-x-6 bottom-4 h-px bg-border-soft md:inset-x-10" aria-hidden="true" />
                 <div className="absolute right-4 top-8 hidden h-28 w-px bg-border-soft md:block" aria-hidden="true" />
                 <motion.div
@@ -658,15 +671,15 @@ function ExploreMoreSlide({ projects }: { projects: ReadonlyArray<Project> }) {
                                                     key={`${project.name}-${rowIndex}-${projectIndex}`}
                                                     className="flex h-48 w-88 shrink-0 flex-col overflow-hidden rounded-[0.5rem] border border-border bg-surface/30 p-5"
                                                 >
-                                                    <h2 className="line-clamp-2 text-lg font-black leading-tight text-foreground">
+                                                    <h2 className="line-clamp-2 break-words whitespace-normal text-lg font-black leading-tight text-foreground">
                                                         {project.name}
                                                     </h2>
 
-                                                    <p className="mt-2 line-clamp-1 text-xs font-semibold text-foreground">
+                                                    <p className="mt-2 line-clamp-1 break-words whitespace-normal text-xs font-semibold text-foreground">
                                                         {project.role}
                                                     </p>
 
-                                                    <p className="mt-3 line-clamp-3 text-xs leading-[1.8] text-foreground-secondary">
+                                                    <p className="mt-3 line-clamp-3 break-words whitespace-normal text-xs leading-[1.8] text-foreground-secondary">
                                                         {project.shortVersion}
                                                     </p>
 
