@@ -122,7 +122,7 @@ export default function Hero() {
                         </p>
                     </div>
                     <div>
-                        <p className="text-[34px] font-black leading-none text-foreground">50+</p>
+                        <p className="text-[34px] font-black leading-none text-foreground">20+</p>
                         <p className="mt-1 text-sm font-semibold text-caption">Projects Delivered</p>
                     </div>
                 </motion.div>
@@ -142,7 +142,7 @@ export default function Hero() {
 
                 <motion.div {...fadeIn(0.6)} className="grid z-10 w-full max-w-md grid-cols-2 gap-4 py-10 md:hidden">
                     <div className="rounded-2xl border border-border-soft p-4">
-                        <p className="text-xl font-black text-foreground">50+</p>
+                        <p className="text-xl font-black text-foreground">20+</p>
                         <p className="text-xs font-semibold text-caption">Projects Delivered</p>
                     </div>
                     <div className="rounded-2xl border border-border-soft p-4 text-right">

@@ -25,7 +25,7 @@ export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number];
 export type ProjectUrl = `http://${string}` | `https://${string}`;
 export type ProjectThumbnail = `/${string}`;
 
-export const DEFAULT_PROJECT_THUMBNAIL = "/Macbook-Air-my.dgix.co.webp" as const;
+export const DEFAULT_PROJECT_THUMBNAIL = "/Macbook-Air-my.dgix.co.png" as const;
 
 export interface Project {
     name: string;
@@ -211,7 +211,7 @@ export const projects: ReadonlyArray<Project> = [
         ],
     },
     {
-        name: "InvestmentVista",
+        name: "Investment Vista",
         thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://investmentvista.com"],
         category: "Real Estate & Lead Generation",
@@ -256,7 +256,7 @@ export const projects: ReadonlyArray<Project> = [
         ],
     },
     {
-        name: "DGIX Ecosystem (Exchange, Super App, Prop)",
+        name: "DGIX Ecosystem",
         thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://dgix.app", "https://my.dgix.co", "https://dgixprop.co"],
         category: "Ecosystem & Platforms",

@@ -1,5 +1,6 @@
 import AboutIdentity from "@/components/about-identity";
 import Hero from "@/components/hero";
+import ProjectsShowcase from "@/components/projects-showcase";
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       <main className="flex flex-1 w-full flex-col">
         <Hero />
         <AboutIdentity />
+        <ProjectsShowcase />
       </main>
     </div>
   );
