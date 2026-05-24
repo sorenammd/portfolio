@@ -5,13 +5,25 @@ import { projects } from "@/lib/projects";
 import { AnimatePresence, motion, useScroll, type Variants } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 
 const slideEase = [0.22, 1, 0.36, 1] as [number, number, number, number];
 const scrollStepCooldownMs = 780;
 const wheelDeltaThreshold = 8;
 const touchDeltaThreshold = 34;
+const dragSwitchThreshold = 52;
 const mobileStepStartViewportRatio = 0.2;
+
+type StepOptions = {
+    requireInView?: boolean;
+};
+
+type PointerGestureState = {
+    pointerId: number;
+    startX: number;
+    startY: number;
+    ignore: boolean;
+};
 
 const variants: Variants = {
     enter: (dir: number) => ({
@@ -57,6 +69,9 @@ export default function ProjectsShowcase() {
     const stepTimeoutRef = useRef<number | null>(null);
     const touchStartXRef = useRef<number | null>(null);
     const touchStartYRef = useRef<number | null>(null);
+    const pointerGestureRef = useRef<PointerGestureState | null>(null);
+    const canStepRef = useRef<(scrollDirection: number, options?: StepOptions) => boolean>(() => false);
+    const stepProjectRef = useRef<(scrollDirection: number, options?: StepOptions) => void>(() => undefined);
     const [activeIndex, setActiveIndex] = useState(0);
     const [direction, setDirection] = useState(1);
     const progressScale = projects.length <= 1 ? 1 : activeIndex / (projects.length - 1);
@@ -69,6 +84,133 @@ export default function ProjectsShowcase() {
     useEffect(() => {
         activeIndexRef.current = activeIndex;
     }, [activeIndex]);
+
+    const clearStepCooldown = useCallback(() => {
+        if (stepTimeoutRef.current !== null) {
+            window.clearTimeout(stepTimeoutRef.current);
+            stepTimeoutRef.current = null;
+        }
+    }, []);
+
+    const getSectionScrollBounds = useCallback(() => {
+        const section = sectionRef.current;
+        if (!section) return null;
+
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        const maxScrollY = sectionTop + section.offsetHeight - window.innerHeight;
+
+        return {
+            sectionTop,
+            maxScrollY: Math.max(sectionTop, maxScrollY),
+        };
+    }, []);
+
+    const isInsideSteppedScrollArea = useCallback(() => {
+        const scrollBounds = getSectionScrollBounds();
+        if (!scrollBounds) return false;
+
+        const currentScrollY = window.scrollY;
+        const isMobile = window.matchMedia("(max-width: 767px)").matches;
+        const startScrollY = isMobile
+            ? scrollBounds.sectionTop - window.innerHeight * mobileStepStartViewportRatio
+            : scrollBounds.sectionTop;
+
+        return currentScrollY >= startScrollY - 2 && currentScrollY <= scrollBounds.maxScrollY + 2;
+    }, [getSectionScrollBounds]);
+
+    const canStep = useCallback((scrollDirection: number, options?: StepOptions) => {
+        const requireInView = options?.requireInView ?? true;
+        if (requireInView && !isInsideSteppedScrollArea()) return false;
+
+        const currentIndex = activeIndexRef.current;
+        return scrollDirection > 0
+            ? currentIndex < projects.length - 1
+            : currentIndex > 0;
+    }, [isInsideSteppedScrollArea]);
+
+    const getSnapTarget = useCallback((index: number) => {
+        const scrollBounds = getSectionScrollBounds();
+        if (!scrollBounds) return null;
+
+        const stepSize = projects.length <= 1 ? 0 : (scrollBounds.maxScrollY - scrollBounds.sectionTop) / (projects.length - 1);
+
+        return scrollBounds.sectionTop + stepSize * index;
+    }, [getSectionScrollBounds]);
+
+    const stepProject = useCallback((scrollDirection: number, options?: StepOptions) => {
+        if (isSteppingRef.current || !canStep(scrollDirection, options)) return;
+
+        const nextIndex = clampProjectIndex(activeIndexRef.current + scrollDirection);
+        if (nextIndex === activeIndexRef.current) return;
+
+        const snapTarget = getSnapTarget(nextIndex);
+        if (snapTarget === null) return;
+
+        setDirection(scrollDirection);
+        activeIndexRef.current = nextIndex;
+        setActiveIndex(nextIndex);
+        isSteppingRef.current = true;
+
+        clearStepCooldown();
+        window.scrollTo({ top: snapTarget, behavior: "smooth" });
+        stepTimeoutRef.current = window.setTimeout(() => {
+            isSteppingRef.current = false;
+            stepTimeoutRef.current = null;
+        }, scrollStepCooldownMs);
+    }, [canStep, clearStepCooldown, getSnapTarget]);
+
+    useEffect(() => {
+        canStepRef.current = canStep;
+        stepProjectRef.current = stepProject;
+    }, [canStep, stepProject]);
+
+    const resetPointerGesture = () => {
+        pointerGestureRef.current = null;
+    };
+
+    const handleSlidePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+        if (event.pointerType === "mouse" && event.button !== 0) return;
+
+        const target = event.target instanceof HTMLElement ? event.target : null;
+        const ignore = Boolean(
+            target?.closest("a, button, input, textarea, select, summary, [role='button'], [data-drag-switch='ignore']"),
+        );
+
+        pointerGestureRef.current = {
+            pointerId: event.pointerId,
+            startX: event.clientX,
+            startY: event.clientY,
+            ignore,
+        };
+
+        if (!ignore) {
+            event.currentTarget.setPointerCapture(event.pointerId);
+        }
+    };
+
+    const handleSlidePointerEnd = (event: ReactPointerEvent<HTMLDivElement>) => {
+        const gesture = pointerGestureRef.current;
+        if (!gesture || gesture.pointerId !== event.pointerId) return;
+
+        if (!gesture.ignore && event.currentTarget.hasPointerCapture(event.pointerId)) {
+            event.currentTarget.releasePointerCapture(event.pointerId);
+        }
+
+        resetPointerGesture();
+        if (gesture.ignore) return;
+
+        const deltaX = event.clientX - gesture.startX;
+        const deltaY = event.clientY - gesture.startY;
+        const absX = Math.abs(deltaX);
+        const absY = Math.abs(deltaY);
+        const useVerticalAxis = absY >= absX;
+        const primaryDelta = useVerticalAxis ? deltaY : deltaX;
+
+        if (Math.abs(primaryDelta) < dragSwitchThreshold) return;
+
+        const scrollDirection = primaryDelta < 0 ? 1 : -1;
+        stepProjectRef.current(scrollDirection, { requireInView: false });
+    };
 
     useEffect(() => {
         return scrollYProgress.on("change", (scrollProgress) => {
@@ -91,79 +233,16 @@ export default function ProjectsShowcase() {
         const section = sectionRef.current;
         if (!section) return;
 
-        const clearStepCooldown = () => {
-            if (stepTimeoutRef.current !== null) {
-                window.clearTimeout(stepTimeoutRef.current);
-                stepTimeoutRef.current = null;
-            }
-        };
-
-        const getSectionScrollBounds = () => {
-            const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-            const maxScrollY = sectionTop + section.offsetHeight - window.innerHeight;
-
-            return {
-                sectionTop,
-                maxScrollY: Math.max(sectionTop, maxScrollY),
-            };
-        };
-
-        const isInsideSteppedScrollArea = () => {
-            const { sectionTop, maxScrollY } = getSectionScrollBounds();
-            const currentScrollY = window.scrollY;
-            const isMobile = window.matchMedia("(max-width: 767px)").matches;
-            const startScrollY = isMobile
-                ? sectionTop - window.innerHeight * mobileStepStartViewportRatio
-                : sectionTop;
-
-            return currentScrollY >= startScrollY - 2 && currentScrollY <= maxScrollY + 2;
-        };
-
-        const canStep = (scrollDirection: number) => {
-            if (!isInsideSteppedScrollArea()) return false;
-
-            const currentIndex = activeIndexRef.current;
-            return scrollDirection > 0
-                ? currentIndex < projects.length - 1
-                : currentIndex > 0;
-        };
-
-        const getSnapTarget = (index: number) => {
-            const { sectionTop, maxScrollY } = getSectionScrollBounds();
-            const stepSize = projects.length <= 1 ? 0 : (maxScrollY - sectionTop) / (projects.length - 1);
-
-            return sectionTop + stepSize * index;
-        };
-
-        const stepProject = (scrollDirection: number) => {
-            if (isSteppingRef.current) return;
-
-            const nextIndex = clampProjectIndex(activeIndexRef.current + scrollDirection);
-            if (nextIndex === activeIndexRef.current) return;
-
-            setDirection(scrollDirection);
-            activeIndexRef.current = nextIndex;
-            setActiveIndex(nextIndex);
-            isSteppingRef.current = true;
-
-            clearStepCooldown();
-            window.scrollTo({ top: getSnapTarget(nextIndex), behavior: "smooth" });
-            stepTimeoutRef.current = window.setTimeout(() => {
-                isSteppingRef.current = false;
-                stepTimeoutRef.current = null;
-            }, scrollStepCooldownMs);
-        };
-
         const handleWheel = (event: WheelEvent) => {
             if (Math.abs(event.deltaY) < wheelDeltaThreshold || Math.abs(event.deltaY) < Math.abs(event.deltaX)) {
                 return;
             }
 
             const scrollDirection = event.deltaY > 0 ? 1 : -1;
-            if (!canStep(scrollDirection)) return;
+            if (!canStepRef.current(scrollDirection)) return;
 
             event.preventDefault();
-            stepProject(scrollDirection);
+            stepProjectRef.current(scrollDirection);
         };
 
         const handleTouchStart = (event: TouchEvent) => {
@@ -183,7 +262,7 @@ export default function ProjectsShowcase() {
             if (Math.abs(deltaY) < wheelDeltaThreshold || Math.abs(deltaY) < Math.abs(deltaX)) return;
 
             const scrollDirection = deltaY > 0 ? 1 : -1;
-            if (canStep(scrollDirection)) {
+            if (canStepRef.current(scrollDirection)) {
                 event.preventDefault();
             }
         };
@@ -201,8 +280,8 @@ export default function ProjectsShowcase() {
             if (Math.abs(deltaY) < touchDeltaThreshold || Math.abs(deltaY) < Math.abs(deltaX)) return;
 
             const scrollDirection = deltaY > 0 ? 1 : -1;
-            if (canStep(scrollDirection)) {
-                stepProject(scrollDirection);
+            if (canStepRef.current(scrollDirection)) {
+                stepProjectRef.current(scrollDirection);
             }
         };
 
@@ -225,7 +304,7 @@ export default function ProjectsShowcase() {
             section.removeEventListener("touchend", handleTouchEnd);
             section.removeEventListener("touchcancel", resetTouchStart);
         };
-    }, []);
+    }, [clearStepCooldown]);
 
     return (
         <section
@@ -274,7 +353,11 @@ export default function ProjectsShowcase() {
                                 initial="enter"
                                 animate="center"
                                 exit="exit"
-                                className="absolute inset-0 flex items-center justify-center"
+                                className="absolute inset-0 flex select-none items-center justify-center md:cursor-grab md:active:cursor-grabbing"
+                                style={{ touchAction: "none" }}
+                                onPointerDown={handleSlidePointerDown}
+                                onPointerUp={handleSlidePointerEnd}
+                                onPointerCancel={resetPointerGesture}
                                 transition={{
                                     duration: 0.7,
                                     ease: slideEase,
@@ -295,7 +378,7 @@ export default function ProjectsShowcase() {
                             />
                         </div>
                         <span className="text-[10px] font-medium text-caption shrink-0">
-                            Scroll to explore
+                            Scroll, swipe, or drag
                         </span>
                     </div>
 
