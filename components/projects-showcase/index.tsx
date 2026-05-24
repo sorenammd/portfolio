@@ -174,7 +174,7 @@ function ProjectSlide({ project }: { project: Project }) {
                 <h3 className={`max-w-4xl ${titleSize} font-black leading-[0.92] tracking-normal text-foreground`}>
                     <span className="block text-accent">{leadTitle}</span>
                     {restTitle && (
-                        <span className="outlined-text block [text-wrap:balance]">
+                        <span className="outlined-text block text-balance">
                             {restTitle}
                         </span>
                     )}
