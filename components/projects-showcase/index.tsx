@@ -8,6 +8,10 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const slideEase = [0.22, 1, 0.36, 1] as [number, number, number, number];
+const scrollStepCooldownMs = 780;
+const wheelDeltaThreshold = 8;
+const touchDeltaThreshold = 34;
+const mobileStepStartViewportRatio = 0.2;
 
 const variants: Variants = {
     enter: (dir: number) => ({
@@ -32,20 +36,30 @@ function getProjectTitleSize(name: string) {
     const longestPart = Math.max(...name.split(/[\s-]+/).map((part) => part.length));
 
     if (name.length >= 34) {
-        return "text-[clamp(1.55rem,6.4vw,3rem)] md:text-[clamp(2.45rem,3.6vw,3.75rem)]";
+        return "text-[clamp(1.25rem,5.5vw,2.2rem)] md:text-[clamp(2.45rem,3.6vw,3.75rem)]";
     }
 
     if (name.length >= 18 || longestPart >= 13) {
-        return "text-[clamp(1.9rem,8vw,3.75rem)] md:text-[clamp(3.05rem,4.35vw,4.55rem)]";
+        return "text-[clamp(1.55rem,6.7vw,2.75rem)] md:text-[clamp(3.05rem,4.35vw,4.55rem)]";
     }
 
-    return "text-[clamp(2.35rem,10.5vw,4.8rem)] md:text-[clamp(3.9rem,5.7vw,5.85rem)]";
+    return "text-[clamp(1.9rem,8.2vw,3.45rem)] md:text-[clamp(3.9rem,5.7vw,5.85rem)]";
+}
+
+function clampProjectIndex(index: number) {
+    return Math.min(projects.length - 1, Math.max(0, index));
 }
 
 export default function ProjectsShowcase() {
     const sectionRef = useRef<HTMLDivElement>(null);
+    const activeIndexRef = useRef(0);
+    const isSteppingRef = useRef(false);
+    const stepTimeoutRef = useRef<number | null>(null);
+    const touchStartXRef = useRef<number | null>(null);
+    const touchStartYRef = useRef<number | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
     const [direction, setDirection] = useState(1);
+    const progressScale = projects.length <= 1 ? 1 : activeIndex / (projects.length - 1);
 
     const { scrollYProgress } = useScroll({
         target: sectionRef,
@@ -53,18 +67,165 @@ export default function ProjectsShowcase() {
     });
 
     useEffect(() => {
-        return scrollYProgress.on("change", (v) => {
+        activeIndexRef.current = activeIndex;
+    }, [activeIndex]);
+
+    useEffect(() => {
+        return scrollYProgress.on("change", (scrollProgress) => {
+            if (isSteppingRef.current) return;
+
             const next = Math.min(
                 projects.length - 1,
-                Math.max(0, Math.round(v * (projects.length - 1))),
+                Math.max(0, Math.round(scrollProgress * (projects.length - 1))),
             );
             setActiveIndex((prev) => {
                 if (prev === next) return prev;
                 setDirection(next > prev ? 1 : -1);
+                activeIndexRef.current = next;
                 return next;
             });
         });
     }, [scrollYProgress]);
+
+    useEffect(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        const clearStepCooldown = () => {
+            if (stepTimeoutRef.current !== null) {
+                window.clearTimeout(stepTimeoutRef.current);
+                stepTimeoutRef.current = null;
+            }
+        };
+
+        const getSectionScrollBounds = () => {
+            const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+            const maxScrollY = sectionTop + section.offsetHeight - window.innerHeight;
+
+            return {
+                sectionTop,
+                maxScrollY: Math.max(sectionTop, maxScrollY),
+            };
+        };
+
+        const isInsideSteppedScrollArea = () => {
+            const { sectionTop, maxScrollY } = getSectionScrollBounds();
+            const currentScrollY = window.scrollY;
+            const isMobile = window.matchMedia("(max-width: 767px)").matches;
+            const startScrollY = isMobile
+                ? sectionTop - window.innerHeight * mobileStepStartViewportRatio
+                : sectionTop;
+
+            return currentScrollY >= startScrollY - 2 && currentScrollY <= maxScrollY + 2;
+        };
+
+        const canStep = (scrollDirection: number) => {
+            if (!isInsideSteppedScrollArea()) return false;
+
+            const currentIndex = activeIndexRef.current;
+            return scrollDirection > 0
+                ? currentIndex < projects.length - 1
+                : currentIndex > 0;
+        };
+
+        const getSnapTarget = (index: number) => {
+            const { sectionTop, maxScrollY } = getSectionScrollBounds();
+            const stepSize = projects.length <= 1 ? 0 : (maxScrollY - sectionTop) / (projects.length - 1);
+
+            return sectionTop + stepSize * index;
+        };
+
+        const stepProject = (scrollDirection: number) => {
+            if (isSteppingRef.current) return;
+
+            const nextIndex = clampProjectIndex(activeIndexRef.current + scrollDirection);
+            if (nextIndex === activeIndexRef.current) return;
+
+            setDirection(scrollDirection);
+            activeIndexRef.current = nextIndex;
+            setActiveIndex(nextIndex);
+            isSteppingRef.current = true;
+
+            clearStepCooldown();
+            window.scrollTo({ top: getSnapTarget(nextIndex), behavior: "smooth" });
+            stepTimeoutRef.current = window.setTimeout(() => {
+                isSteppingRef.current = false;
+                stepTimeoutRef.current = null;
+            }, scrollStepCooldownMs);
+        };
+
+        const handleWheel = (event: WheelEvent) => {
+            if (Math.abs(event.deltaY) < wheelDeltaThreshold || Math.abs(event.deltaY) < Math.abs(event.deltaX)) {
+                return;
+            }
+
+            const scrollDirection = event.deltaY > 0 ? 1 : -1;
+            if (!canStep(scrollDirection)) return;
+
+            event.preventDefault();
+            stepProject(scrollDirection);
+        };
+
+        const handleTouchStart = (event: TouchEvent) => {
+            const touch = event.touches[0];
+            if (!touch) return;
+
+            touchStartXRef.current = touch.clientX;
+            touchStartYRef.current = touch.clientY;
+        };
+
+        const handleTouchMove = (event: TouchEvent) => {
+            const touch = event.touches[0];
+            if (!touch || touchStartXRef.current === null || touchStartYRef.current === null) return;
+
+            const deltaX = touchStartXRef.current - touch.clientX;
+            const deltaY = touchStartYRef.current - touch.clientY;
+            if (Math.abs(deltaY) < wheelDeltaThreshold || Math.abs(deltaY) < Math.abs(deltaX)) return;
+
+            const scrollDirection = deltaY > 0 ? 1 : -1;
+            if (canStep(scrollDirection)) {
+                event.preventDefault();
+            }
+        };
+
+        const handleTouchEnd = (event: TouchEvent) => {
+            const touch = event.changedTouches[0];
+            if (!touch || touchStartXRef.current === null || touchStartYRef.current === null) return;
+
+            const deltaX = touchStartXRef.current - touch.clientX;
+            const deltaY = touchStartYRef.current - touch.clientY;
+
+            touchStartXRef.current = null;
+            touchStartYRef.current = null;
+
+            if (Math.abs(deltaY) < touchDeltaThreshold || Math.abs(deltaY) < Math.abs(deltaX)) return;
+
+            const scrollDirection = deltaY > 0 ? 1 : -1;
+            if (canStep(scrollDirection)) {
+                stepProject(scrollDirection);
+            }
+        };
+
+        const resetTouchStart = () => {
+            touchStartXRef.current = null;
+            touchStartYRef.current = null;
+        };
+
+        section.addEventListener("wheel", handleWheel, { passive: false });
+        section.addEventListener("touchstart", handleTouchStart, { passive: true });
+        section.addEventListener("touchmove", handleTouchMove, { passive: false });
+        section.addEventListener("touchend", handleTouchEnd, { passive: true });
+        section.addEventListener("touchcancel", resetTouchStart, { passive: true });
+
+        return () => {
+            clearStepCooldown();
+            section.removeEventListener("wheel", handleWheel);
+            section.removeEventListener("touchstart", handleTouchStart);
+            section.removeEventListener("touchmove", handleTouchMove);
+            section.removeEventListener("touchend", handleTouchEnd);
+            section.removeEventListener("touchcancel", resetTouchStart);
+        };
+    }, []);
 
     return (
         <section
@@ -73,7 +234,7 @@ export default function ProjectsShowcase() {
             style={{ height: `${projects.length * 100}vh` }}
             className="relative bg-background"
         >
-            <div className="sticky top-0 flex h-screen items-center overflow-hidden py-10 md:py-12">
+            <div className="sticky top-0 flex h-screen items-start overflow-hidden pb-10 pt-5 md:items-center md:py-12">
                 <div className="mx-auto flex h-[82vh] min-h-135 w-full max-w-7xl flex-col px-5 md:h-[78vh] md:min-h-150 md:px-8">
 
                     {/* ── Section label ───────────────────────────────────────── */}
@@ -129,7 +290,8 @@ export default function ProjectsShowcase() {
                         <div className="relative h-px flex-1 bg-border-soft overflow-hidden">
                             <motion.div
                                 className="absolute inset-0 bg-accent origin-left"
-                                style={{ scaleX: scrollYProgress }}
+                                animate={{ scaleX: progressScale }}
+                                transition={{ duration: 0.45, ease: slideEase }}
                             />
                         </div>
                         <span className="text-[10px] font-medium text-caption shrink-0">
@@ -171,12 +333,15 @@ function ProjectSlide({ project }: { project: Project }) {
                     )}
                 </div>
 
-                <h3 className={`max-w-4xl ${titleSize} font-black leading-[0.92] tracking-normal text-foreground`}>
-                    <span className="block text-accent">{leadTitle}</span>
+                <h3
+                    className={`max-w-4xl ${titleSize} overflow-hidden whitespace-nowrap font-black leading-[0.92] tracking-normal text-foreground text-ellipsis md:whitespace-normal md:overflow-visible`}
+                >
+                    <span className="inline text-accent md:block">{leadTitle}</span>
                     {restTitle && (
-                        <span className="outlined-text block text-balance">
-                            {restTitle}
-                        </span>
+                        <>
+                            <span className="md:hidden"> </span>
+                            <span className="outlined-text inline md:block md:text-balance">{restTitle}</span>
+                        </>
                     )}
                 </h3>
 
