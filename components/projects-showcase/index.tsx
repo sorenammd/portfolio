@@ -499,7 +499,7 @@ function ProjectSlide({ project }: { project: Project }) {
                     initial="hidden"
                     animate="visible"
                     variants={contentRevealVariants}
-                    className={`max-w-4xl ${titleSize} overflow-hidden whitespace-nowrap font-black leading-[0.92] tracking-normal text-foreground text-ellipsis md:whitespace-normal md:overflow-visible`}
+                    className={`max-w-4xl ${titleSize} whitespace-normal break-words font-black leading-[0.92] tracking-normal text-foreground`}
                 >
                     <span className="inline text-accent md:block">{leadTitle}</span>
                     {restTitle && (
@@ -592,7 +592,7 @@ function ExploreMoreSlide({ projects }: { projects: ReadonlyArray<Project> }) {
                     initial="hidden"
                     animate="visible"
                     variants={contentRevealVariants}
-                    className="mt-5 max-w-2xl text-[clamp(1rem,1.55vw,1.2rem)] font-semibold leading-[1.6] text-foreground md:mt-6"
+                    className="mt-5 max-w-2xl  font-semibold leading-[1.6] text-foreground md:mt-6"
                 >
                     A broader selection of product, platform, and immersive work across AI, Web3, infrastructure, and commerce.
                 </motion.p>
@@ -602,7 +602,7 @@ function ExploreMoreSlide({ projects }: { projects: ReadonlyArray<Project> }) {
                     initial="hidden"
                     animate="visible"
                     variants={contentRevealVariants}
-                    className="mt-3 max-w-2xl text-[clamp(0.94rem,1.25vw,1.04rem)] leading-[1.82] text-foreground-secondary md:mt-4"
+                    className="mt-3 max-w-2xl px-2  text-foreground-secondary md:mt-4"
                 >
                     Open the full archive to browse every case study, stack, and project category in one place.
                 </motion.p>
@@ -626,7 +626,7 @@ function ExploreMoreSlide({ projects }: { projects: ReadonlyArray<Project> }) {
                 </motion.div>
             </div>
 
-            <div className="relative order-1 h-[20vh] min-h-58 w-full md:order-2 md:h-[50vh] md:min-h-0">
+            <div className="relative order-1 h-[30vh] min-h-78 w-full md:order-2 md:h-[50vh] md:min-h-0">
                 <div className="absolute inset-x-6 bottom-4 h-px bg-border-soft md:inset-x-10" aria-hidden="true" />
                 <div className="absolute right-4 top-8 hidden h-28 w-px bg-border-soft md:block" aria-hidden="true" />
                 <motion.div
