@@ -65,10 +65,8 @@ export const projects: ReadonlyArray<Project> = [
         techStack: [
             "Next.js",
             "TypeScript",
-            "Tailwind CSS",
+            "Tailwind",
             "next-intl",
-            "Drizzle ORM",
-            "PostgreSQL",
         ],
     },
     {
@@ -87,10 +85,9 @@ export const projects: ReadonlyArray<Project> = [
         shortVersion:
             "Built an AI-powered supply chain intelligence platform using React, TypeScript, and OpenAI APIs, with dashboards, document analysis, supplier scoring, and scenario simulation.",
         techStack: [
-            "React",
             "TypeScript",
             "Vite",
-            "Tailwind CSS",
+            "Tailwind",
             "Radix UI",
             "OpenAI API",
             "IndexedDB",
@@ -111,7 +108,7 @@ export const projects: ReadonlyArray<Project> = [
         ],
         shortVersion:
             "Built a responsive marketing website and interactive product showcase for PhotoGear, a precision agriculture platform for drone-based NDVI and photogrammetry processing.",
-        techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
+        techStack: ["Next.js", "TypeScript", "Tailwind"],
     },
     {
         name: "Smart Crawler",
@@ -252,11 +249,10 @@ export const projects: ReadonlyArray<Project> = [
         techStack: [
             "Next.js",
             "TypeScript",
-            "Tailwind CSS",
+            "Tailwind",
             "Node.js",
             "Express",
             "MongoDB",
-            "Radix UI",
             "GSAP",     
         ],
     },
