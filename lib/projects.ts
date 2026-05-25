@@ -280,15 +280,15 @@ export const projects: ReadonlyArray<Project> = [
         category: "Marketing & Community",
         role: "Core team member",
         productSummary:
-            "Aerium is an open-source platform for collaborative decision-making, on-chain governance, and community-driven consensus. I joined as a core team member, helping shape the product, codebase, and public presence from the ground up.",
+            "Aerium is an open-source layer-1 blockchain platform for collaborative decision-making, on-chain governance, and community-driven consensus. I joined the core team and helped evolve the platform, its architecture, and the developer-facing experience.",
         whatIDid: [
-            "Joined as a core team member of the open-source Aerium project, taking ownership of the web presence and contributing to technical and product decisions.",
-            "Designed and built a responsive one-page marketing site with modular sections — Header, Hero, About, Features, Roadmap, and Footer — aligned with the platform's governance-first identity.",
-            "Enriched the visual experience through brand assets, custom SVGs, and background video integration.",
-            "Owned the full delivery pipeline: static export, GitHub Pages hosting, SEO metadata, favicon assets, and automated GitHub Actions CI/CD workflows.",
+            "Joined the Aerium core team to contribute to product direction, frontend architecture, and platform launch planning.",
+            "Built the public web presence as part of the core product experience while keeping focus on the layer-1 platform narrative and governance identity.",
+            "Implemented brand assets, custom SVGs, and video integrations to support the platform's story and technical positioning.",
+            "Owned the delivery pipeline with static export, GitHub Pages deployment, favicon assets, and automated GitHub Actions CI/CD workflows.",
         ],
         shortVersion:
-            "Core team member of the open-source Aerium project. Built and shipped the marketing site with modular sections, motion-driven visuals and SEO.",
+            "Core team member of Aerium, an open-source layer-1 blockchain platform, working on the platform experience, product identity, and delivery pipeline.",
         techStack: ["Next.js 16", "TypeScript", "Tailwind"],
     },
     {
