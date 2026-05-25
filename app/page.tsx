@@ -1,4 +1,5 @@
 import AboutIdentity from "@/components/about-identity";
+import Experience from "@/components/experience";
 import Hero from "@/components/hero";
 import ProjectsShowcase from "@/components/projects-showcase";
 
@@ -8,6 +9,7 @@ export default function Home() {
       <main className="flex flex-1 w-full flex-col">
         <Hero />
         <AboutIdentity />
+        <Experience />
         <ProjectsShowcase />
       </main>
     </div>

@@ -360,97 +360,96 @@ export default function ProjectsShowcase() {
             style={{ height: `${showcaseSlides.length * 100}vh` }}
             className="relative bg-background"
         >
-            <div className="sticky top-0 flex h-screen items-start overflow-hidden pb-10 pt-5 md:items-center md:py-12">
-                <div className="mx-auto flex h-[82vh] min-h-135 w-full max-w-7xl flex-col px-5 md:h-[78vh] md:min-h-150 md:px-8">
+            <div className="sticky top-0 flex h-screen items-start overflow-hidden px-5 pb-10 pt-0 md:items-center md:px-8 md:pb-12 md:pt-0">
+                <div className="relative mx-auto w-full max-w-7xl">
+                    <div className="flex h-[82vh] min-h-135 w-full flex-col md:h-[78vh] md:min-h-150">
 
-                    {/* ── Section label ───────────────────────────────────────── */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="mb-5 flex items-center gap-5 md:mb-6"
-                    >
-                        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-caption">
-                            Projects
-                        </span>
-                        <motion.span
-                            initial={{ scaleX: 0 }}
-                            whileInView={{ scaleX: 1 }}
-                            viewport={{ once: true, margin: "-60px" }}
-                            transition={{
-                                duration: 2.5,
-                                delay: 0.2,
-                                ease: slideEase,
-                            }}
-                            className="h-px flex-1 bg-border origin-left block"
-                        />
-                        <span className="text-[10px] font-semibold text-caption tabular-nums">
-                            +20
-                        </span>
-                    </motion.div>
-
-                    {/* ── Project slide ───────────────────────────────────────── */}
-                    <div className="relative flex-1 min-h-0">
-                        <AnimatePresence custom={direction}>
-                            {showcaseSlides[activeIndex]?.type === "project" ? (
-                                <motion.div
-                                    key={activeIndex}
-                                    custom={direction}
-                                    variants={variants}
-                                    initial="enter"
-                                    animate="center"
-                                    exit="exit"
-                                    className="absolute inset-0 flex select-none items-center justify-center md:cursor-grab md:active:cursor-grabbing"
-                                    style={{ touchAction: "none" }}
-                                    onPointerDown={handleSlidePointerDown}
-                                    onPointerUp={handleSlidePointerEnd}
-                                    onPointerCancel={resetPointerGesture}
-                                    transition={{
-                                        duration: 0.7,
-                                        ease: slideEase,
-                                    }}
-                                >
-                                    <ProjectSlide project={showcaseSlides[activeIndex].project} />
-                                </motion.div>
-                            ) : (
-                                <motion.div
-                                    key={activeIndex}
-                                    custom={direction}
-                                    variants={variants}
-                                    initial="enter"
-                                    animate="center"
-                                    exit="exit"
-                                    className="absolute inset-0 flex select-none items-center justify-center md:cursor-grab md:active:cursor-grabbing"
-                                    style={{ touchAction: "none" }}
-                                    onPointerDown={handleSlidePointerDown}
-                                    onPointerUp={handleSlidePointerEnd}
-                                    onPointerCancel={resetPointerGesture}
-                                    transition={{
-                                        duration: 0.7,
-                                        ease: slideEase,
-                                    }}
-                                >
-                                    <ExploreMoreSlide projects={remainingProjects} />
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
-
-                    {/* ── Scroll progress ──────────────────────────────────────── */}
-                    <div className="mt-4 flex items-center gap-4">
-                        <div className="relative h-px flex-1 bg-border-soft overflow-hidden">
-                            <motion.div
-                                className="absolute inset-0 bg-accent origin-left"
-                                animate={{ scaleX: progressScale }}
-                                transition={{ duration: 0.45, ease: slideEase }}
+                        {/* ── Section label ───────────────────────────────────────── */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true, margin: "-80px" }}
+                            transition={{ duration: 0.7, ease: "easeOut" }}
+                            className="mb-10 flex items-center gap-5 md:mb-14"
+                        >
+                            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-caption">
+                                Projects
+                            </span>
+                            <motion.span
+                                initial={{ scaleX: 0, originX: 0 }}
+                                whileInView={{ scaleX: 1 }}
+                                viewport={{ once: true, margin: "-80px" }}
+                                transition={{
+                                    duration: 2.4,
+                                    delay: 0.12,
+                                    ease: slideEase,
+                                }}
+                                className="h-px flex-1 bg-border origin-left"
+                                style={{ display: "block" }}
                             />
-                        </div>
-                        <span className="text-[10px] font-medium text-caption shrink-0">
-                            Scroll
-                        </span>
-                    </div>
+                        </motion.div>
 
+                        {/* ── Project slide ───────────────────────────────────────── */}
+                        <div className="relative min-h-0 flex-1">
+                            <AnimatePresence custom={direction}>
+                                {showcaseSlides[activeIndex]?.type === "project" ? (
+                                    <motion.div
+                                        key={activeIndex}
+                                        custom={direction}
+                                        variants={variants}
+                                        initial="enter"
+                                        animate="center"
+                                        exit="exit"
+                                        className="absolute inset-0 flex select-none items-center justify-center md:cursor-grab md:active:cursor-grabbing"
+                                        style={{ touchAction: "none" }}
+                                        onPointerDown={handleSlidePointerDown}
+                                        onPointerUp={handleSlidePointerEnd}
+                                        onPointerCancel={resetPointerGesture}
+                                        transition={{
+                                            duration: 0.7,
+                                            ease: slideEase,
+                                        }}
+                                    >
+                                        <ProjectSlide project={showcaseSlides[activeIndex].project} />
+                                    </motion.div>
+                                ) : (
+                                    <motion.div
+                                        key={activeIndex}
+                                        custom={direction}
+                                        variants={variants}
+                                        initial="enter"
+                                        animate="center"
+                                        exit="exit"
+                                        className="absolute inset-0 flex select-none items-center justify-center md:cursor-grab md:active:cursor-grabbing"
+                                        style={{ touchAction: "none" }}
+                                        onPointerDown={handleSlidePointerDown}
+                                        onPointerUp={handleSlidePointerEnd}
+                                        onPointerCancel={resetPointerGesture}
+                                        transition={{
+                                            duration: 0.7,
+                                            ease: slideEase,
+                                        }}
+                                    >
+                                        <ExploreMoreSlide />
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+
+                        {/* ── Scroll progress ──────────────────────────────────────── */}
+                        <div className="mt-4 flex items-center gap-4">
+                            <div className="relative h-px flex-1 overflow-hidden bg-border-soft">
+                                <motion.div
+                                    className="absolute inset-0 bg-accent origin-left"
+                                    animate={{ scaleX: progressScale }}
+                                    transition={{ duration: 0.45, ease: slideEase }}
+                                />
+                            </div>
+                            <span className="text-[10px] font-medium text-caption shrink-0">
+                                Scroll
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -577,7 +576,7 @@ function ProjectSlide({ project }: { project: Project }) {
     );
 }
 
-function ExploreMoreSlide({ projects }: { projects: ReadonlyArray<Project> }) {
+function ExploreMoreSlide() {
     return (
         <article className="relative grid h-full w-full max-w-7xl overflow-hidden grid-rows-[minmax(0,1fr)_auto] items-center gap-4 py-2 md:grid-cols-[minmax(0,1.02fr)_minmax(300px,0.88fr)] md:grid-rows-1 md:gap-12 md:py-4">
             <div className="relative order-2 z-10 min-w-0 flex min-h-0 flex-col items-start justify-center md:order-1">
