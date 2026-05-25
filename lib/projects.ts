@@ -150,7 +150,7 @@ export const projects: ReadonlyArray<Project> = [
         ],
         shortVersion:
             "Built and maintained Artogenia, a Web3 art marketplace for artists, galleries, and collectors, with marketplace flows, SEO, and production deployment.",
-        techStack: ["Next.js","TypeScript","Web3"],
+        techStack: ["Next.js", "TypeScript", "Web3"],
     },
     {
         name: "3D Gallery",
@@ -253,7 +253,7 @@ export const projects: ReadonlyArray<Project> = [
             "Node.js",
             "Express",
             "MongoDB",
-            "GSAP",     
+            "GSAP",
         ],
     },
     {
@@ -278,16 +278,17 @@ export const projects: ReadonlyArray<Project> = [
         thumbnail: DEFAULT_PROJECT_THUMBNAIL,
         domains: ["https://aerium.network"],
         category: "Marketing & Community",
-        role: "Frontend engineer",
+        role: "Core team member",
         productSummary:
-            "Aerium is a modern landing website for a platform focused on collaborative decision-making, transparency, and community-driven consensus.",
+            "Aerium is an open-source platform for collaborative decision-making, on-chain governance, and community-driven consensus. I joined as a core team member, helping shape the product, codebase, and public presence from the ground up.",
         whatIDid: [
-            "Designed and developed a responsive one-page website with modular sections such as Header, Hero, About, Features, Roadmap, and Footer.",
-            "Integrated brand assets, SVGs, and background videos to create a more engaging visual experience.",
-            "Configured static export, GitHub Pages deployment, metadata, icons, and GitHub Actions workflows for automated delivery.",
+            "Joined as a core team member of the open-source Aerium project, taking ownership of the web presence and contributing to technical and product decisions.",
+            "Designed and built a responsive one-page marketing site with modular sections — Header, Hero, About, Features, Roadmap, and Footer — aligned with the platform's governance-first identity.",
+            "Enriched the visual experience through brand assets, custom SVGs, and background video integration.",
+            "Owned the full delivery pipeline: static export, GitHub Pages hosting, SEO metadata, favicon assets, and automated GitHub Actions CI/CD workflows.",
         ],
         shortVersion:
-            "Built a responsive landing page for Aerium with modular sections, motion-based visuals, SEO metadata, and GitHub Pages deployment.",
+            "Core team member of the open-source Aerium project. Built and shipped the marketing site with modular sections, motion-driven visuals and SEO.",
         techStack: ["Next.js 16", "TypeScript", "Tailwind"],
     },
     {
