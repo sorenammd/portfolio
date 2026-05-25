@@ -360,7 +360,7 @@ export default function ProjectsShowcase() {
             style={{ height: `${showcaseSlides.length * 100}vh` }}
             className="relative bg-background"
         >
-            <div className="sticky top-0 flex h-screen items-start overflow-hidden px-5 pb-10 pt-0 md:items-center md:px-8 md:pb-12 md:pt-0">
+            <div className="sticky top-0 flex h-screen items-start overflow-hidden px-5 pb-0 pt-0 md:items-center md:px-8 md:pb-0 md:pt-0">
                 <div className="relative mx-auto w-full max-w-7xl">
                     <div className="flex h-[82vh] min-h-135 w-full flex-col md:h-[78vh] md:min-h-150">
 

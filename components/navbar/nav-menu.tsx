@@ -4,13 +4,63 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export const navLinks = [
     { id: 1, name: "Home", href: "/" as const },
     { id: 2, name: "Projects", href: "/projects" as const },
-    { id: 3, name: "Contact", href: "/contact" as const },
+    { id: 3, name: "Contact", href: "/#contact" as const },
 ];
+
+export function useScrollToContact() {
+    const pathname = usePathname();
+    return useCallback(
+        (e: React.MouseEvent) => {
+            e.preventDefault();
+            if (pathname === "/") {
+                document
+                    .getElementById("contact")
+                    ?.scrollIntoView({ behavior: "smooth" });
+            } else {
+                window.location.href = "/#contact";
+            }
+        },
+        [pathname],
+    );
+}
+
+function NavItem({
+    item,
+    pathname,
+}: {
+    item: (typeof navLinks)[number];
+    pathname: string;
+}) {
+    const scrollToContact = useScrollToContact();
+    const isContact = item.href === "/#contact";
+    const isActive = isContact
+        ? false
+        : pathname === item.href;
+
+    return (
+        <li
+            data-href={item.href}
+            className={cn(
+                "z-10 cursor-pointer h-full flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors duration-200 tracking-tight",
+                isActive
+                    ? "text-foreground"
+                    : "text-foreground/50 hover:text-foreground",
+            )}
+        >
+            <Link
+                href={item.href}
+                onClick={isContact ? scrollToContact : undefined}
+            >
+                {item.name}
+            </Link>
+        </li>
+    );
+}
 
 export function NavMenu() {
     const pathname = usePathname();
@@ -43,18 +93,7 @@ export function NavMenu() {
                 ref={ref}
             >
                 {navLinks.map((item) => (
-                    <li
-                        key={item.id}
-                        data-href={item.href}
-                        className={cn(
-                            "z-10 cursor-pointer h-full flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors duration-200 tracking-tight",
-                            pathname === item.href
-                                ? "text-foreground"
-                                : "text-foreground/50 hover:text-foreground",
-                        )}
-                    >
-                        <Link href={item.href}>{item.name}</Link>
-                    </li>
+                    <NavItem key={item.id} item={item} pathname={pathname} />
                 ))}
                 {isReady && (
                     <motion.li

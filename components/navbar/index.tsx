@@ -7,12 +7,12 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { NavMenu } from "./nav-menu";
+import { NavMenu, useScrollToContact } from "./nav-menu";
 
 const mobileNavLinks = [
     { id: 1, name: "Home", href: "/" as const, icon: Home },
     { id: 2, name: "Projects", href: "/projects" as const, icon: Briefcase },
-    { id: 3, name: "Contact", href: "/contact" as const, icon: Mail },
+    { id: 3, name: "Contact", href: "/#contact" as const, icon: Mail },
 ];
 
 const INITIAL_WIDTH = "70rem";
@@ -32,6 +32,7 @@ export function Navbar() {
 
     const { resolvedTheme, setTheme } = useTheme();
     const toggleTheme = () => setTheme(resolvedTheme === "dark" ? "light" : "dark");
+    const scrollToContact = useScrollToContact();
 
     return (
         <>
@@ -81,7 +82,8 @@ export function Navbar() {
                                     <Moon className="size-4 hidden dark:block" />
                                 </button>
                                 <Link
-                                    href="/contact"
+                                    href="/#contact"
+                                    onClick={scrollToContact}
                                     className="h-8 flex items-center justify-center text-sm font-medium tracking-wide rounded-full bg-foreground text-background px-4 hover:opacity-85 transition-opacity active:scale-95"
                                 >
                                     Hire me
@@ -108,6 +110,7 @@ export function Navbar() {
                             <Link
                                 key={item.id}
                                 href={item.href}
+                                onClick={item.href === "/#contact" ? scrollToContact : undefined}
                                 className={cn(
                                     "flex flex-col items-center justify-center gap-0.5 px-4 py-2 rounded-full text-[10px] font-medium transition-colors",
                                     isActive

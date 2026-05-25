@@ -1,4 +1,5 @@
 import AboutIdentity from "@/components/about-identity";
+import Contact from "@/components/contact";
 import Experience from "@/components/experience";
 import Hero from "@/components/hero";
 import ProjectsShowcase from "@/components/projects-showcase";
@@ -11,6 +12,7 @@ export default function Home() {
         <AboutIdentity />
         <Experience />
         <ProjectsShowcase />
+        <Contact />
       </main>
     </div>
   );
