@@ -32,15 +32,17 @@ export function useScrollToContact() {
 function NavItem({
     item,
     pathname,
+    contactVisible,
 }: {
     item: (typeof navLinks)[number];
     pathname: string;
+    contactVisible: boolean;
 }) {
     const scrollToContact = useScrollToContact();
     const isContact = item.href === "/#contact";
     const isActive = isContact
-        ? false
-        : pathname === item.href;
+        ? contactVisible
+        : pathname === item.href && !contactVisible;
 
     return (
         <li
@@ -67,10 +69,28 @@ export function NavMenu() {
     const ref = useRef<HTMLUListElement>(null);
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
     const [isReady, setIsReady] = useState(false);
+    const [contactVisible, setContactVisible] = useState(false);
 
-    const updateIndicator = (activeHref: string) => {
+    useEffect(() => {
+        if (pathname !== "/") {
+            setContactVisible(false);
+            return;
+        }
+        const el = document.getElementById("contact");
+        if (!el) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => setContactVisible(entry.isIntersecting),
+            { threshold: 0.2 },
+        );
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, [pathname]);
+
+    const activeHref = contactVisible ? "/#contact" : pathname;
+
+    const updateIndicator = (href: string) => {
         const activeItem = ref.current?.querySelector(
-            `[data-href="${activeHref}"]`,
+            `[data-href="${href}"]`,
         ) as HTMLElement | null;
         if (activeItem) {
             setIndicatorStyle({
@@ -82,9 +102,9 @@ export function NavMenu() {
     };
 
     useEffect(() => {
-        const timeout = setTimeout(() => updateIndicator(pathname), 50);
+        const timeout = setTimeout(() => updateIndicator(activeHref), 50);
         return () => clearTimeout(timeout);
-    }, [pathname]);
+    }, [activeHref]);
 
     return (
         <div className="w-full hidden md:block">
@@ -93,7 +113,7 @@ export function NavMenu() {
                 ref={ref}
             >
                 {navLinks.map((item) => (
-                    <NavItem key={item.id} item={item} pathname={pathname} />
+                    <NavItem key={item.id} item={item} pathname={pathname} contactVisible={contactVisible} />
                 ))}
                 {isReady && (
                     <motion.li
