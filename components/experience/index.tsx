@@ -48,7 +48,7 @@ export default function Experience() {
     return (
         <section
             id="experience"
-            className="relative w-full overflow-hidden px-5 pt-14 pb-2 md:px-8 md:pt-18 md:pb-2"
+            className="relative w-full overflow-hidden px-5 py-14 md:px-8 md:pt-18 md:pb-2"
         >
             <div
                 aria-hidden="true"
