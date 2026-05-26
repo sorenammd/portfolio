@@ -233,7 +233,7 @@ export const projects: ReadonlyArray<Project> = [
     {
         name: "DGIX Ecosystem",
         thumbnail: DEFAULT_PROJECT_THUMBNAIL,
-        domains: ["https://dgix.app", "https://my.dgix.co", "https://dgixprop.co"],
+        domains: ["https://my.dgix.co"],
         category: "Ecosystem & Platforms",
         role: "Full-stack, frontend, and UX engineer",
         productSummary:
