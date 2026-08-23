@@ -110,30 +110,6 @@ export const projects: ReadonlyArray<Project> = [
         ],
     },
     {
-        name: "Insight",
-        thumbnail: "/thumbnail/insight.webp",
-        domains: ["https://insight.sensifai.com"],
-        category: "AI & Data",
-        role: "Frontend engineer",
-        productSummary:
-            "Insight is an AI-powered supply chain intelligence web application that helps teams analyze supplier risk, monitor global disruptions, score supplier performance, and simulate sourcing scenarios in one dashboard.",
-        whatIDid: [
-            "Designed and developed the multi-page React application for supply chain risk and sourcing intelligence.",
-            "Built the executive dashboard, supplier KPI views, risk exposure visualizations, and analysis summaries.",
-            "Implemented AI-driven document analysis with OpenAI, conversational search, supplier scoring, scenario simulation, and persistent session storage using IndexedDB.",
-        ],
-        shortVersion:
-            "Built an AI-powered supply chain intelligence platform using React, TypeScript, and OpenAI APIs, with dashboards, document analysis, supplier scoring, and scenario simulation.",
-        techStack: [
-            "TypeScript",
-            "Vite",
-            "Tailwind",
-            "Radix UI",
-            "OpenAI API",
-            "IndexedDB",
-        ],
-    },
-    {
         name: "PhotoGear",
         thumbnail: "/thumbnail/photogear.webp",
         domains: ["https://photogear.sensifai.com"],
@@ -391,6 +367,30 @@ export const projects: ReadonlyArray<Project> = [
         shortVersion:
             "Built frontend features for a Web3 IP minting platform in React 18, helping turn tokenization and ownership workflows into a usable product experience.",
         techStack: ["Web3", "React 18"],
+    },
+    {
+        name: "Insight",
+        thumbnail: "/thumbnail/insight.webp",
+        domains: ["https://insight.sensifai.com"],
+        category: "AI & Data",
+        role: "Frontend engineer",
+        productSummary:
+            "Insight is an AI-powered supply chain intelligence web application that helps teams analyze supplier risk, monitor global disruptions, score supplier performance, and simulate sourcing scenarios in one dashboard.",
+        whatIDid: [
+            "Designed and developed the multi-page React application for supply chain risk and sourcing intelligence.",
+            "Built the executive dashboard, supplier KPI views, risk exposure visualizations, and analysis summaries.",
+            "Implemented AI-driven document analysis with OpenAI, conversational search, supplier scoring, scenario simulation, and persistent session storage using IndexedDB.",
+        ],
+        shortVersion:
+            "Built an AI-powered supply chain intelligence platform using React, TypeScript, and OpenAI APIs, with dashboards, document analysis, supplier scoring, and scenario simulation.",
+        techStack: [
+            "TypeScript",
+            "Vite",
+            "Tailwind",
+            "Radix UI",
+            "OpenAI API",
+            "IndexedDB",
+        ],
     },
 ];
 
