@@ -130,7 +130,7 @@ export const projects: ReadonlyArray<Project> = [
     {
         name: "Smart Gallery",
         thumbnail: "/thumbnail/smart-gallery.png",
-        domains: [],
+        domains: ["https://github.com/Sensifai-BV/smart-gallery"],
         category: "AI & Mobile",
         role: "Mobile and on-device AI engineer",
         productSummary:
