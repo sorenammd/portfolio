@@ -68,6 +68,48 @@ export const projects: ReadonlyArray<Project> = [
         ],
     },
     {
+        name: "Artogenia",
+        thumbnail: "/thumbnail/artogenia.webp",
+        domains: ["https://artogenia.com"],
+        category: "Marketplace & Web3",
+        role: "Frontend lead and product engineer",
+        productSummary:
+            "Artogenia is a Web3-enabled digital art marketplace connecting artists, galleries, and collectors in one platform. It supports artwork discovery, artist profiles, gallery and contest pages, product detail flows, wallet and payment features, NFT-related experiences, and search across multiple art categories.",
+        whatIDid: [
+            "Built and maintained the frontend of a large-scale art marketplace using Next.js, React, TypeScript, and Redux Toolkit.",
+            "Implemented core marketplace flows such as artwork discovery, product pages, artist profiles, wallet/payment-related pages, contests, and gallery experiences.",
+            "Improved SEO, structured data, Open Graph metadata, web manifest support, and production deployment with standalone Next.js output, Docker, and Nginx.",
+        ],
+        shortVersion:
+            "Built and maintained Artogenia, a Web3 art marketplace for artists, galleries, and collectors, with marketplace flows, SEO, and production deployment.",
+        techStack: ["Next.js", "TypeScript", "Web3"],
+    },
+    {
+        name: "Smart Crawler",
+        thumbnail: "/thumbnail/smart-crawler.webp",
+        domains: [],
+        category: "AI & Infrastructure",
+        role: "Backend and AI systems engineer",
+        productSummary:
+            "Smart Crawler is an autonomous, AI-assisted web crawling and information extraction system for topic-driven crawling and structured entity extraction. It uses an LLM to decide which pages are relevant, what to extract, and which links to follow next, while enforcing validation and quality gates.",
+        whatIDid: [
+            "Designed and implemented the AI-powered crawling pipeline that combines traditional crawling with LLM-based reasoning.",
+            "Built a dual-loop worker architecture for crawl execution and AI processing, with validation layers that treat LLM output as advisory rather than authoritative.",
+            "Implemented robots.txt compliance, sitemap discovery, domain scope enforcement, URL normalization, deduplication, pagination guards, entity storage, REST APIs, search, and BDD-style tests.",
+        ],
+        shortVersion:
+            "Built an AI-powered, topic-driven web crawler in NestJS and TypeScript with validation gates, search, and background workers.",
+        techStack: [
+            "NestJS",
+            "TypeScript",
+            "PostgreSQL",
+            "TypeORM",
+            "Meilisearch",
+            "Ollama",
+            "Crawl4AI"
+        ],
+    },
+    {
         name: "Insight",
         thumbnail: "/thumbnail/insight.webp",
         domains: ["https://insight.sensifai.com"],
@@ -107,48 +149,6 @@ export const projects: ReadonlyArray<Project> = [
         shortVersion:
             "Built a responsive marketing website and interactive product showcase for PhotoGear, a precision agriculture platform for drone-based NDVI and photogrammetry processing.",
         techStack: ["Next.js", "TypeScript", "Tailwind"],
-    },
-    {
-        name: "Smart Crawler",
-        thumbnail: "/thumbnail/smart-crawler.webp",
-        domains: [],
-        category: "AI & Infrastructure",
-        role: "Backend and AI systems engineer",
-        productSummary:
-            "Smart Crawler is an autonomous, AI-assisted web crawling and information extraction system for topic-driven crawling and structured entity extraction. It uses an LLM to decide which pages are relevant, what to extract, and which links to follow next, while enforcing validation and quality gates.",
-        whatIDid: [
-            "Designed and implemented the AI-powered crawling pipeline that combines traditional crawling with LLM-based reasoning.",
-            "Built a dual-loop worker architecture for crawl execution and AI processing, with validation layers that treat LLM output as advisory rather than authoritative.",
-            "Implemented robots.txt compliance, sitemap discovery, domain scope enforcement, URL normalization, deduplication, pagination guards, entity storage, REST APIs, search, and BDD-style tests.",
-        ],
-        shortVersion:
-            "Built an AI-powered, topic-driven web crawler in NestJS and TypeScript with validation gates, search, and background workers.",
-        techStack: [
-            "NestJS",
-            "TypeScript",
-            "PostgreSQL",
-            "TypeORM",
-            "Meilisearch",
-            "Ollama",
-            "Crawl4AI"
-        ],
-    },
-    {
-        name: "Artogenia",
-        thumbnail: "/thumbnail/artogenia.webp",
-        domains: ["https://artogenia.com"],
-        category: "Marketplace & Web3",
-        role: "Frontend lead and product engineer",
-        productSummary:
-            "Artogenia is a Web3-enabled digital art marketplace connecting artists, galleries, and collectors in one platform. It supports artwork discovery, artist profiles, gallery and contest pages, product detail flows, wallet and payment features, NFT-related experiences, and search across multiple art categories.",
-        whatIDid: [
-            "Built and maintained the frontend of a large-scale art marketplace using Next.js, React, TypeScript, and Redux Toolkit.",
-            "Implemented core marketplace flows such as artwork discovery, product pages, artist profiles, wallet/payment-related pages, contests, and gallery experiences.",
-            "Improved SEO, structured data, Open Graph metadata, web manifest support, and production deployment with standalone Next.js output, Docker, and Nginx.",
-        ],
-        shortVersion:
-            "Built and maintained Artogenia, a Web3 art marketplace for artists, galleries, and collectors, with marketplace flows, SEO, and production deployment.",
-        techStack: ["Next.js", "TypeScript", "Web3"],
     },
     {
         name: "3D Gallery",
