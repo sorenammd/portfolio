@@ -35,19 +35,46 @@ export default function ProjectsPage() {
                         >
                             {/* Thumbnail */}
                             <div className="relative h-68 w-full overflow-hidden">
-                                <Image
-                                    src={project.thumbnail}
-                                    alt={project.name}
-                                    fill
-                                    className="object-cover"
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                                />
-                                {/* Glassmorphism tags overlay */}
-                                <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 px-4 py-3">
-                                    <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-md">
-                                        {project.category}
-                                    </span>
-                                </div>
+                                {project.thumbnail ? (
+                                    <>
+                                        <Image
+                                            src={project.thumbnail}
+                                            alt={project.name}
+                                            fill
+                                            className="object-scale-down"
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                                        <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 px-4 py-3">
+                                            <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-md">
+                                                {project.category}
+                                            </span>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <div className="relative flex h-full w-full flex-col items-center justify-center bg-surface/60 p-6">
+                                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--border-soft)_1.5px,transparent_1.5px)] bg-[size:16px_16px] opacity-70" />
+                                        <div className="relative z-10 flex flex-col items-center gap-2.5 text-center">
+                                            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/90 px-4 py-1.5 shadow-sm backdrop-blur-md">
+                                                <span className="relative flex h-2 w-2">
+                                                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+                                                    <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+                                                </span>
+                                                <span className="text-xs font-bold uppercase tracking-[0.22em] text-foreground">
+                                                    Coming Soon
+                                                </span>
+                                            </div>
+                                            <span className="text-xs text-caption">
+                                                Preview in development
+                                            </span>
+                                        </div>
+                                        <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 px-4 py-3">
+                                            <span className="rounded-full border border-border bg-surface/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-caption backdrop-blur-md">
+                                                {project.category}
+                                            </span>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
                             <div className="flex flex-1 flex-col p-6">

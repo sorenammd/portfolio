@@ -561,15 +561,35 @@ function ProjectSlide({ project }: { project: Project }) {
                     initial="hidden"
                     animate="visible"
                     variants={thumbnailRevealVariants}
-                    className="relative h-full w-full"
+                    className="relative flex h-full w-full items-center justify-center"
                 >
-                    <Image
-                        src={project.thumbnail}
-                        alt={`${project.name} preview`}
-                        fill
-                        className="object-contain object-center drop-shadow-[0_28px_44px_rgba(15,23,42,0.22)]"
-                        sizes="(max-width: 768px) 92vw, 44vw"
-                    />
+                    {project.thumbnail ? (
+                        <Image
+                            src={project.thumbnail}
+                            alt={`${project.name} preview`}
+                            fill
+                            className="object-contain object-center drop-shadow-[0_28px_44px_rgba(15,23,42,0.22)]"
+                            sizes="(max-width: 768px) 92vw, 44vw"
+                        />
+                    ) : (
+                        <div className="relative flex h-full max-h-96 w-full max-w-lg flex-col items-center justify-center rounded-2xl border border-border bg-surface/40 p-8 shadow-sm backdrop-blur-md">
+                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--border-soft)_1.5px,transparent_1.5px)] bg-[size:16px_16px] opacity-70 rounded-2xl" />
+                            <div className="relative z-10 flex flex-col items-center gap-3 text-center">
+                                <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/90 px-4 py-1.5 shadow-sm backdrop-blur-md">
+                                    <span className="relative flex h-2 w-2">
+                                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+                                        <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+                                    </span>
+                                    <span className="text-xs font-bold uppercase tracking-[0.22em] text-foreground">
+                                        Coming Soon
+                                    </span>
+                                </div>
+                                <span className="text-xs font-medium text-caption">
+                                    Preview in development
+                                </span>
+                            </div>
+                        </div>
+                    )}
                 </motion.div>
             </div>
         </article>
