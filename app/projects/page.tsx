@@ -41,12 +41,11 @@ export default function ProjectsPage() {
                                             src={project.thumbnail}
                                             alt={project.name}
                                             fill
-                                            className="object-scale-down"
+                                            className="object-scale-down p-4 drop-shadow-[0_20px_35px_rgba(15,23,42,0.22)]"
                                             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
                                         <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 px-4 py-3">
-                                            <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-md">
+                                            <span className="rounded-full border border-border bg-surface/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-caption backdrop-blur-md">
                                                 {project.category}
                                             </span>
                                         </div>
