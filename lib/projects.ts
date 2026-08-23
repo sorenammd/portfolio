@@ -3,6 +3,7 @@ export const PROJECT_CATEGORIES = [
     "AI & Data",
     "AI & Agriculture",
     "AI & Infrastructure",
+    "AI & Mobile",
     "Marketplace & Web3",
     "Immersive & 3D",
     "Commerce & Mobile",
@@ -127,6 +128,31 @@ export const projects: ReadonlyArray<Project> = [
         techStack: ["Next.js", "TypeScript", "Tailwind"],
     },
     {
+        name: "Smart Gallery",
+        thumbnail: "/thumbnail/smart-gallery.png",
+        domains: [],
+        category: "AI & Mobile",
+        role: "Mobile and on-device AI engineer",
+        productSummary:
+            "Smart Gallery is a privacy-first, on-device AI-powered media gallery for Android that categorizes, indexes, and searches photos and videos locally without sending private data to cloud servers. It features natural language search, face clustering, document & receipt OCR, zero-flicker playback, and an AES-256 encrypted vault.",
+        whatIDid: [
+            "Built the Android application with 100% on-device AI vision embeddings, zero-shot taxonomy classification, face recognition, and object detection using Sensifai AI models.",
+            "Implemented natural language search enabling semantic photo querying (e.g., sunset on the beach, receipts) and instant local indexing.",
+            "Developed automated face clustering with multi-person group categorization, document/receipt OCR extraction, and multilingual localization across 5 languages.",
+            "Engineered high-performance photo viewing, gesture-driven zoom, inline video playback, AES-256-GCM encrypted vault, and WebDAV cloud offload support.",
+        ],
+        shortVersion:
+            "Built a privacy-first Android media gallery with 100% on-device AI for natural language search, face clustering, OCR, and encrypted vault storage.",
+        techStack: [
+            "Android",
+            "Kotlin",
+            "On-Device AI",
+            "Computer Vision",
+            "Sensifai AI",
+            "AES-256",
+        ],
+    },
+    {
         name: "3D Gallery",
         thumbnail: "/thumbnail/3d-gallery.webp",
         domains: ["https://3d-gallery.artogenia.com"],
@@ -182,6 +208,7 @@ export const projects: ReadonlyArray<Project> = [
     },
     {
         name: "FairWin",
+        thumbnail: "/thumbnail/fairwin.webp",
         domains: ["https://fairwin.online"],
         category: "Web3 & FinTech",
         role: "Full-stack and smart contract engineer",
