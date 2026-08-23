@@ -25,7 +25,7 @@ export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number];
 export type ProjectUrl = `http://${string}` | `https://${string}`;
 export type ProjectThumbnail = `/${string}`;
 
-export const DEFAULT_PROJECT_THUMBNAIL = "/Macbook-Air-my.dgix.co.png" as const;
+export const DEFAULT_PROJECT_THUMBNAIL = "/Macbook-Air-sensifai.com.webp" as const;
 
 export interface Project {
     name: string;
