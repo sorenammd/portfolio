@@ -81,7 +81,7 @@ const links = [
 export default function Contact() {
     return (
         <section
-
+            id="contact"
             className="relative w-full bg-background -mt-20 md:-mt-5 px-5 pb-30 text-foreground md:px-8"
         >
             <div className="relative mx-auto max-w-7xl">
@@ -105,7 +105,6 @@ export default function Contact() {
                 {/* ── Link cards ────────────────────────────────────────────── */}
                 <motion.div
                     {...revealUp(0.12)}
-                    id="contact"
                     className="mx-auto grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2"
                 >
                     {links.map((item, i) => (

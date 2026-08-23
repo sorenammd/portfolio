@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const stars = Array.from({ length: 5 });
 
@@ -91,15 +92,21 @@ export default function Hero() {
        
 
                         <div className="flex items-center gap-3 rounded-full border border-surface/40 bg-surface/30 px-4 py-3 shadow-[0_8px_32px_rgba(15,23,42,0.10)] backdrop-blur-md md:gap-4">
-                            <button className="flex h-13 items-center gap-2.5 rounded-full bg-accent px-8 text-base font-bold text-white shadow-[0_16px_30px_rgba(37,99,235,0.28)] transition-colors duration-200 hover:bg-accent-hover">
+                            <Link
+                                href="#projects"
+                                className="flex h-13 items-center gap-2.5 rounded-full bg-accent px-8 text-base font-bold text-white shadow-[0_16px_30px_rgba(37,99,235,0.28)] transition-colors duration-200 hover:bg-accent-hover"
+                            >
                                 Portfolio
                                 <svg width="15" height="15" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                                     <path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
-                            </button>
-                            <button className="h-13 rounded-full border border-border bg-surface/70 px-8 text-base font-bold text-foreground text-nowrap shadow-[0_6px_14px_rgba(15,23,42,0.10)] transition-colors duration-200 hover:border-border/60 hover:bg-surface">
+                            </Link>
+                            <Link
+                                href="#contact"
+                                className="flex h-13 items-center justify-center rounded-full border border-border bg-surface/70 px-8 text-base font-bold text-foreground text-nowrap shadow-[0_6px_14px_rgba(15,23,42,0.10)] transition-colors duration-200 hover:border-border/60 hover:bg-surface"
+                            >
                                 Hire Me
-                            </button>
+                            </Link>
                         </div>
                     </motion.div>
                 </motion.div>
