@@ -69,33 +69,6 @@ export const projects: ReadonlyArray<Project> = [
         ],
     },
     {
-        name: "SensiAvera",
-        thumbnail: "/thumbnail/avera.webp",
-        domains: ["https://avera.sensifai.com"],
-        category: "AI & Platform",
-        role: "Full-stack and AI systems engineer",
-        productSummary:
-            "SensiAvera (SensiDoc) is an enterprise-grade, AI-first Intelligent Document Processing (IDP) and automated redaction platform. Built on NestJS and React, it features a dynamic Instruction Registry supporting multi-jurisdictional compliance (GDPR, PDPL) across 45+ countries and 29 distinct document categories.",
-        whatIDid: [
-            "Architected the dynamic Instruction Registry composing system, country, category, and issuer prompts for multi-jurisdictional compliance across 45+ countries and 29 document categories.",
-            "Engineered the multi-AI provider orchestration engine with priority failover across OpenAI, Gemini, Claude, Azure OpenAI, and OpenRouter.",
-            "Implemented deterministic mathematical validation algorithms including ICAO MRZ 7-3-1, Luhn Mod 10, Kuwait & Singapore Mod 11, IBAN Mod 97, and ISO 3779 VIN checksums.",
-            "Built a high-performance automated visual PII redaction engine with 7 obfuscation modes and metadata stripping using pdf-lib and sharp.",
-            "Developed human review queue workflows for low-confidence extractions (<0.85) and multi-format exports (JSON, CSV, Excel, Searchable PDF, Redacted PDF) with full audit logging.",
-        ],
-        shortVersion:
-            "Built SensiAvera, an enterprise AI document understanding and visual PII redaction platform with multi-AI failover, deterministic checksum validations, and multi-jurisdictional compliance across 45+ countries.",
-        techStack: [
-            "NestJS",
-            "React",
-            "TypeScript",
-            "pdf-lib",
-            "sharp",
-            "OpenAI API",
-            "Gemini",
-        ],
-    },
-    {
         name: "Artogenia",
         thumbnail: "/thumbnail/artogenia.webp",
         domains: ["https://artogenia.com"],
@@ -135,6 +108,33 @@ export const projects: ReadonlyArray<Project> = [
             "Meilisearch",
             "Ollama",
             "Crawl4AI"
+        ],
+    },
+    {
+        name: "SensiAvera",
+        thumbnail: "/thumbnail/avera.webp",
+        domains: ["https://avera.sensifai.com"],
+        category: "AI & Platform",
+        role: "Full-stack and AI systems engineer",
+        productSummary:
+            "SensiAvera (SensiDoc) is an enterprise-grade, AI-first Intelligent Document Processing (IDP) and automated redaction platform. Built on NestJS and React, it features a dynamic Instruction Registry supporting multi-jurisdictional compliance (GDPR, PDPL) across 45+ countries and 29 distinct document categories.",
+        whatIDid: [
+            "Architected the dynamic Instruction Registry composing system, country, category, and issuer prompts for multi-jurisdictional compliance across 45+ countries and 29 document categories.",
+            "Engineered the multi-AI provider orchestration engine with priority failover across OpenAI, Gemini, Claude, Azure OpenAI, and OpenRouter.",
+            "Implemented deterministic mathematical validation algorithms including ICAO MRZ 7-3-1, Luhn Mod 10, Kuwait & Singapore Mod 11, IBAN Mod 97, and ISO 3779 VIN checksums.",
+            "Built a high-performance automated visual PII redaction engine with 7 obfuscation modes and metadata stripping using pdf-lib and sharp.",
+            "Developed human review queue workflows for low-confidence extractions (<0.85) and multi-format exports (JSON, CSV, Excel, Searchable PDF, Redacted PDF) with full audit logging.",
+        ],
+        shortVersion:
+            "Built SensiAvera, an enterprise AI document understanding and visual PII redaction platform with multi-AI failover, deterministic checksum validations, and multi-jurisdictional compliance across 45+ countries.",
+        techStack: [
+            "NestJS",
+            "React",
+            "TypeScript",
+            "pdf-lib",
+            "sharp",
+            "OpenAI API",
+            "Gemini",
         ],
     },
     {
