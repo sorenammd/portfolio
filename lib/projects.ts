@@ -1,4 +1,5 @@
 export const PROJECT_CATEGORIES = [
+    "Creative Tech & Platform",
     "AI & Platform",
     "AI & Data",
     "AI & Agriculture",
@@ -153,6 +154,32 @@ export const projects: ReadonlyArray<Project> = [
         shortVersion:
             "Built a responsive marketing website and interactive product showcase for PhotoGear, a precision agriculture platform for drone-based NDVI and photogrammetry processing.",
         techStack: ["Next.js", "TypeScript", "Tailwind"],
+    },
+    {
+        name: "Charizma Studio",
+        thumbnail: "/thumbnail/charismastudio.webp",
+        domains: ["https://charismastudio.ir"],
+        category: "Creative Tech & Platform",
+        role: "Full-stack and product engineer",
+        productSummary:
+            "Charizma Studio is a creative tech and product engineering platform designed to deconstruct complex agency services into clear, compelling customer value through interactive storytelling, bespoke design systems, and resilient full-stack architecture.",
+        whatIDid: [
+            "Led the entire product lifecycle end-to-end, from initial product discovery, wireframing, and design systems to full-stack engineering and production deployment.",
+            "Designed a bespoke visual language and interactive storytelling experience that deconstructs complex agency services into clear, compelling customer value.",
+            "Developed custom scroll-triggered physics, interactive SVG pipeline visualizers, and a 420vh horizontal product canvas using Framer Motion.",
+            "Engineered a resilient full-stack architecture with Next.js 16 App Router, React 19, and Tailwind CSS v4, backed by a PostgreSQL and Drizzle ORM pipeline for instant lead acquisition.",
+        ],
+        shortVersion:
+            "Built Charizma Studio end-to-end, featuring custom scroll physics, interactive SVG visualizers, a 420vh horizontal product canvas, and a Next.js 16, React 19, and Drizzle ORM backend.",
+        techStack: [
+            "Next.js 16",
+            "React 19",
+            "Tailwind CSS v4",
+            "Framer Motion",
+            "PostgreSQL",
+            "Drizzle ORM",
+            "TypeScript",
+        ],
     },
     {
         name: "Smart Gallery",
