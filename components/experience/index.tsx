@@ -6,13 +6,51 @@ import Image from "next/image";
 
 const timelineEase = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
-const experiences = [
+interface ExperienceItem {
+    company: string;
+    role: string;
+    employment: string;
+    period: string;
+    startDate?: { year: number; month: number };
+    endDate?: { year: number; month: number } | null;
+    duration?: string;
+    location: string;
+    mode: string;
+    logo: string;
+    accent: string;
+}
+
+function calculateDuration(
+    startDate: { year: number; month: number },
+    endDate?: { year: number; month: number } | null
+): string {
+    const end = endDate ?? {
+        year: new Date().getFullYear(),
+        month: new Date().getMonth() + 1,
+    };
+    const totalMonths = (end.year - startDate.year) * 12 + (end.month - startDate.month) + 1;
+    if (totalMonths <= 0) return "1 mo";
+
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+
+    const yearStr = years > 0 ? `${years} ${years === 1 ? "yr" : "yrs"}` : "";
+    const monthStr = months > 0 ? `${months} ${months === 1 ? "mo" : "mos"}` : "";
+
+    if (yearStr && monthStr) {
+        return `${yearStr} ${monthStr}`;
+    }
+    return yearStr || monthStr || "1 mo";
+}
+
+const experiences: ExperienceItem[] = [
     {
         company: "Sensifai",
         role: "Software Engineer",
         employment: "Full-time",
         period: "Oct 2025 - Present",
-        duration: "8 mos",
+        startDate: { year: 2025, month: 10 },
+        endDate: null,
         location: "Belgium",
         mode: "Remote",
         logo: "/sensifai.png",
@@ -40,7 +78,7 @@ const experiences = [
         logo: "/sensifai.png",
         accent: "from-accent/16 via-accent/6 to-transparent",
     },
-] as const;
+];
 
 
 
@@ -113,6 +151,9 @@ export default function Experience() {
                     <div className="space-y-4 md:space-y-5">
                         {experiences.map((item, index) => {
                             const isLeft = index % 2 !== 0;
+                            const duration = item.startDate
+                                ? calculateDuration(item.startDate, item.endDate)
+                                : item.duration;
 
                             return (
                                 <motion.article
@@ -161,7 +202,7 @@ export default function Experience() {
                                                         <BriefcaseBusiness className="h-3.5 w-3.5 text-accent" />
                                                         {item.employment}
                                                     </span>
-                                                    <span className="text-caption font-medium normal-case">{item.duration}</span>
+                                                    <span suppressHydrationWarning className="text-caption font-medium normal-case">{duration}</span>
                                                 </div>
 
                                                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] font-medium text-caption">
